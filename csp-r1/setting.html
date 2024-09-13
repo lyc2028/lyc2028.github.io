@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>设置 - 初赛题库</title>
+    <style>
+        a {
+            color: #3498DD;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0056B3;
+        }
+
+        span.scbl {
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+            width: 40px;
+            color: white;
+        }
+
+        button {
+            color: white;
+            background-color: #3498DD;
+            border-style: solid;
+            border-color: #3498DD;
+            border-radius: 5px;
+            outline-style: none;
+        }
+
+        button:hover {
+            background-color: blue;
+            border-color: blue;
+        }
+
+        button.danger {
+            color: white;
+            background-color: #DD5656;
+            border-style: solid;
+            border-color: #DD5656;
+            border-radius: 5px;
+            outline-style: none;
+        }
+
+        button.danger:hover {
+            background-color: red;
+            border-color: red;
+        }
+
+        #left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            width: 200px;
+            height: 100%;
+            background-color: #ddd;
+        }
+
+        #right {
+            position: absolute;
+            top: 0;
+            left: 200px;
+            display: inline-block;
+            width: -webkit-fill-available;
+            height: 100%;
+            background-color: #fff;
+            padding-left: 20px;
+            overflow: auto;
+        }
+
+        .menu {
+            display: block;
+            width: -webkit-fill-available;
+            height: 50px;
+            font-size: 28px;
+            padding-top: 11px;
+            text-align: center;
+            color: black;
+            background-color: #ddd;
+        }
+
+        .menu:hover {
+            background-color: #bbb;
+        }
+
+        .menu-active {
+            display: block;
+            width: -webkit-fill-available;
+            height: 50px;
+            font-size: 28px;
+            padding-top: 11px;
+            text-align: center;
+            color: blue;
+            background-color: #ddd;
+        }
+
+        .menu-active:hover {
+            color: blue;
+            background-color: #bbb;
+        }
+
+        .menu-top {
+            display: block;
+            width: -webkit-fill-available;
+            height: 50px;
+            font-size: 28px;
+            padding-top: 11px;
+            text-align: center;
+            color: white;
+            background-color: blue;
+        }
+
+        .menu-top:hover {
+            color: white;
+        }
+
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: -webkit-fill-available;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body style="padding-left: 10px;">
+    <div id="left">
+        <a class="menu-top" title="BDFZ 信息竞赛初赛题库" href="index.html">初赛题库</a>
+        <a class="menu" href="problemset.html">📚&nbsp;题库</a>
+        <a class="menu" href="record.html">📊&nbsp;记录</a>
+        <a class="menu-active" href="setting.html">🔧&nbsp;设置</a>
+        <a class="menu" href="about.html">💬&nbsp;关于</a>
+        <a class="menu" href="https://github.com/lyc2028/lyc2028.github.io" target="_blank">🔗&nbsp;Github</a>
+        <div id="footer"><p>Powered by <a href="https://github.com/lyc2028/lyc2028.github.io" target="_blank">lyc2028</a></p></div>
+    </div>
+    <div id="right">
+        <div id="app">
+            <h2>🔧&nbsp;设置</h2>
+            <h3>清除所有数据&nbsp;<button class="danger" onclick="clear_data()">清除</button></h3>
+        </div>
+    </div>
+    <script src="init.js"></script>
+    <script>
+        function clear_data() {
+            if (confirm("数据清除后不可恢复，确认执行此操作？")) {
+                localStorage.removeItem("liyuanchen2021-chusai");
+                localStorage.removeItem("liyuanchen2021-chusai1");
+                localStorage.removeItem("liyuanchen2021-chusai2");
+                localStorage.removeItem("liyuanchen2021-chusai9");
+                localStorage.removeItem("liyuanchen2021-chusai11");
+                localStorage.removeItem("liyuanchen2021-chusai12");
+                localStorage.removeItem("liyuanchen2021-chusai13");
+                localStorage.removeItem("liyuanchen2021-chusai14");
+                alert("操作成功，数据已全部清除");
+                location.reload();
+            }
+        }
+    </script>
+</body>
+
+</html>
