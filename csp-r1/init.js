@@ -1,0 +1,17 @@
+if (typeof (Storage) === "undefined") alert("该浏览器不支持存储数据，可能影响您的使用。\n推荐使用 Chorme 浏览器。");
+var answer = "", sc = [], savearr = [], best = [], tim = [], rec1 = [], rec2 = [], rec3 = [], rec4 = [];
+if (localStorage.getItem("liyuanchen2021-chusai") == null) localStorage.setItem("liyuanchen2021-chusai", "");
+if (localStorage.getItem("liyuanchen2021-chusai1") == null) localStorage.setItem("liyuanchen2021-chusai1", "");
+if (localStorage.getItem("liyuanchen2021-chusai9") == null) localStorage.setItem("liyuanchen2021-chusai9", "");
+if (localStorage.getItem("liyuanchen2021-chusai11") == null) localStorage.setItem("liyuanchen2021-chusai11", "");
+if (localStorage.getItem("liyuanchen2021-chusai12") == null) localStorage.setItem("liyuanchen2021-chusai12", "");
+if (localStorage.getItem("liyuanchen2021-chusai13") == null) localStorage.setItem("liyuanchen2021-chusai13", "");
+if (localStorage.getItem("liyuanchen2021-chusai14") == null) localStorage.setItem("liyuanchen2021-chusai14", "");
+if (localStorage.getItem("liyuanchen2021-chusai") != "") savearr = localStorage.getItem("liyuanchen2021-chusai").split(',');
+if (localStorage.getItem("liyuanchen2021-chusai1") != "") best = localStorage.getItem("liyuanchen2021-chusai1").split(',');
+if (localStorage.getItem("liyuanchen2021-chusai9") != "") tim = localStorage.getItem("liyuanchen2021-chusai9").split(',');
+if (localStorage.getItem("liyuanchen2021-chusai11") != "") rec1 = localStorage.getItem("liyuanchen2021-chusai11").split(',');
+if (localStorage.getItem("liyuanchen2021-chusai12") != "") rec2 = localStorage.getItem("liyuanchen2021-chusai12").split(',');
+if (localStorage.getItem("liyuanchen2021-chusai13") != "") rec3 = localStorage.getItem("liyuanchen2021-chusai13").split(',');
+if (localStorage.getItem("liyuanchen2021-chusai14") != "") rec4 = localStorage.getItem("liyuanchen2021-chusai14").split(',');
+records = localStorage.getItem("liyuanchen2021-chusai2");
