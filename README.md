@@ -1,5 +1,7 @@
 # lyc2028.github.io
 
+注：部分卡片加载较慢，请稍等。
+
 ## 个人介绍
 
 我是 BDFZ 2028 届初三学生李垣辰，洛谷账号是 [liyuanchen2021](https://www.luogu.com.cn/user/557680)，欢迎关注。
