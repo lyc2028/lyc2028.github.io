@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>初赛题库</title>
+    <style>
+        a {
+            color: #3498DD;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0056B3;
+        }
+
+        span.scbl {
+            display: inline-block;
+            text-align: center;
+            border-radius: 5px;
+            width: 40px;
+            color: white;
+        }
+
+        button {
+            color: white;
+            background-color: #3498DD;
+            border-style: solid;
+            border-color: #3498DD;
+            border-radius: 5px;
+            outline-style: none;
+        }
+
+        button:hover {
+            background-color: blue;
+            border-color: blue;
+        }
+
+        button.danger {
+            color: white;
+            background-color: #DD5656;
+            border-style: solid;
+            border-color: #DD5656;
+            border-radius: 5px;
+            outline-style: none;
+        }
+
+        button.danger:hover {
+            background-color: red;
+            border-color: red;
+        }
+
+        #left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            width: 200px;
+            height: 100%;
+            background-color: #ddd;
+        }
+
+        #right {
+            position: absolute;
+            top: 0;
+            left: 200px;
+            display: inline-block;
+            width: -webkit-fill-available;
+            height: 100%;
+            background-color: #fff;
+            padding-left: 20px;
+            overflow: auto;
+        }
+
+        .menu {
+            display: block;
+            width: -webkit-fill-available;
+            height: 50px;
+            font-size: 28px;
+            padding-top: 11px;
+            text-align: center;
+            color: black;
+            background-color: #ddd;
+        }
+
+        .menu:hover {
+            background-color: #bbb;
+        }
+
+        .menu-active {
+            display: block;
+            width: -webkit-fill-available;
+            height: 50px;
+            font-size: 28px;
+            padding-top: 11px;
+            text-align: center;
+            color: blue;
+            background-color: #ddd;
+        }
+
+        .menu-active:hover {
+            color: blue;
+            background-color: #bbb;
+        }
+
+        .menu-top {
+            display: block;
+            width: -webkit-fill-available;
+            height: 50px;
+            font-size: 28px;
+            padding-top: 11px;
+            text-align: center;
+            color: white;
+            background-color: blue;
+        }
+
+        .menu-top:hover {
+            color: white;
+        }
+
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: -webkit-fill-available;
+            text-align: center;
+        }
+
+        select {
+            display: inline-block;
+            width: 60px;
+        }
+    </style>
+</head>
+
+<body style="padding-left: 10px;">
+    <div id="left">
+        <a class="menu-top" title="BDFZ 信息竞赛初赛题库" href="index.html">初赛题库</a>
+        <a class="menu-active" href="problemset.html">📚&nbsp;题库</a>
+        <a class="menu" href="record.html">📊&nbsp;记录</a>
+        <a class="menu" href="setting.html">🔧&nbsp;设置</a>
+        <a class="menu" href="about.html">💬&nbsp;关于</a>
+        <a class="menu" href="https://github.com/lyc2028/lyc2028.github.io" target="_blank">🔗&nbsp;Github</a>
+        <div id="footer"><p>Powered by <a href="https://github.com/lyc2028/lyc2028.github.io" target="_blank">lyc2028</a></p></div>
+    </div>
+    <div id="right">
+        <div id="app">
+            <h2>📘&nbsp;<span id="ti"></span>&nbsp;&nbsp;<button onclick="back()">返回题库</button></h2>
+            <p id="tag"></p>
+            <p>试卷编号：<span id="setid"></span>&nbsp;|&nbsp;题目数量：<span id="num"></span><span id="best" style="display: none;">&nbsp;| 最好成绩：<span
+                        id="bestscore"></span></span>
+            </p>
+            <h2>试卷介绍</h2>
+            <div id="in"></div>
+            <h2>提交答案</h2>
+            <p><input id="myans" style="width: 400px;" onkeyup="press_key()" placeholder="请在此处输入您的答案">&nbsp;<button
+                    onclick="submit()">提交</button>&nbsp;<button class="danger" onclick="reset()">重置</button>
+            </p>
+            <p><button style="font-size: 125%;" onclick="appendA()">A</button>&nbsp;<button style="font-size: 125%;"
+                    onclick="appendB()">B</button>&nbsp;<button style="font-size: 125%;"
+                    onclick="appendC()">C</button>&nbsp;<button style="font-size: 125%;"
+                    onclick="appendD()">D</button>&nbsp;<button style="font-size: 125%;"
+                    onclick="appendT()">T</button>&nbsp;<button style="font-size: 125%;"
+                    onclick="appendF()">F</button>&nbsp;<button title="退格" style="font-size: 125%;" onclick="appendBack()">←</button>
+            </p>
+            <p>长度：<span id="mylen"></span></p>
+            <p>说明：<ul><li>对于每道选择题，直接填写选项所对应的大写字母；对于每道判断题，正确用 T 表示，错误用 F 表示。</li><li>将每道题的答案按题目编号先后顺序组合成一个字符串，并填写到上面的输入框中。</li></ul></p>
+            <h2>最近提交</h2>
+            <div id="result">您尚未提交此题</div>
+        </div>
+        <div id="list">
+            <h2>📚&nbsp;初赛题库</h2>
+            <p>试卷总数：<span id="tot_task"></span></p>
+            <p><input id="search_keyword" style="width: 200px;" onkeyup="press_key()" placeholder="关键词/编号">&nbsp;<button
+                    onclick="search()">搜索/跳转</button></p>
+            <p>组别：<select id="se1" onclick="search()">
+                <option value=-1>全部</option>
+                <option value=0>J&nbsp;组</option>
+                <option value=1>S&nbsp;组</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;时间：<select id="se2" onclick="search()">
+                <option value=-1>全部</option>
+                <option value=2019>2019</option>
+                <option value=2020>2020</option>
+                <option value=2021>2021</option>
+                <option value=2022>2022</option>
+                <option value=2023>2023</option>
+                <option value=2024>2024</option>
+                <option value=2025>2025</option>
+                <option value=2026>2026</option>
+                <option value=2027>2027</option>
+                <option value=2028>2028</option>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;类型：<select id="se3" onclick="search()">
+                <option value=-1>全部</option>
+                <option value=0>真题</option>
+                <option value=1>模拟</option>
+                <option value=2>校内</option>
+            </select></p>
+            <p>共计&nbsp;<span id="tot"></span>&nbsp;条结果</p>
+            <div id="results"></div>
+        </div>
+        <div id="err">
+            <h2>❌&nbsp;出错了&nbsp;&nbsp;<button onclick="back()">返回题库</button></h2>
+            <p id="err-content"></p>
+        </div>
+    </div>
+    <script src="init.js"></script>
+    <script src="problemset.js"></script>
+    <script>
+        document.getElementById("list").style.display = "none";
+        document.getElementById("err").style.display = "none";
+        if (window.location.href.indexOf("?id=") != -1) {
+            var now = window.location.href.split("=")[1];
+            if (parseInt(now) < 1001 || parseInt(now) > 1001 + strlist.length - 1) {
+                show_error("试卷未找到");
+            } else {
+                var information = "这里空空如也~";
+                get_judge_data();
+                if (answer.length == 0) {
+                    show_error("试卷维护中");
+                } else {
+                    var sctot = 0;
+                    for (var i = 0; i < answer.length; i++) sctot += sc[i];
+                    //alert(sctot);
+                    var idx = parseInt(now) - 1001;
+                    document.getElementsByTagName("title")[0].innerHTML = strlist[idx] + " - 初赛题库";
+                    document.getElementById("setid").innerHTML = now;
+                    document.getElementById("ti").innerHTML = strlist[idx];
+                    document.getElementById("in").innerHTML = information;
+                    document.getElementById("mylen").innerHTML = document.getElementById("myans").value.length;
+                    if (savearr[idx] != "" && savearr[idx] != undefined) {
+                        var score = 0.0;
+                        var myans = savearr[idx];
+                        for (var i = 0; i < answer.length; i++) {
+                            if (myans[i] == answer[i]) {
+                                var pid = i + 1;
+                                score += sc[i];
+                            }
+                        }
+                        var nowday = new Date();
+                        var year = nowday.getFullYear();
+                        var month = ('0' + (nowday.getMonth() + 1)).slice(-2);
+                        var day = ('0' + nowday.getDate()).slice(-2);
+                        var hours = ('0' + nowday.getHours()).slice(-2);
+                        var minutes = ('0' + nowday.getMinutes()).slice(-2);
+                        var seconds = ('0' + nowday.getSeconds()).slice(-2);
+                        document.getElementById("result").innerHTML = "<p>提交时间：" + tim[idx] + "</p>";
+                        document.getElementById("result").innerHTML += "<p id=\"my_ans\">我的答案：</p>";
+                        var wrong = [];
+                        for (var i = 0; i < answer.length; i++) {
+                            if (myans[i] == answer[i]) document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>";
+                            else document.getElementById("my_ans").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
+                        }
+                        //document.getElementById("result").innerHTML += "<p>正确答案：" + answer + "</p>";
+                        if (wrong.length > 0) {
+                            var wrid = "错题编号：";
+                            for (var i = 0; i < wrong.length; i++) {
+                                if (i != 0) wrid += "&nbsp;&nbsp;";
+                                wrid += wrong[i];
+                            }
+                            document.getElementById("result").innerHTML += "<p>" + wrid + "</p>";
+                        }
+                        document.getElementById("result").innerHTML += "<p>成绩：" + score + "</p>";
+                    }
+                    if (best[idx] != "" && best[idx] != undefined) document.getElementById("best").style.display = "inline-block", document.getElementById("bestscore").innerHTML = best[idx];
+                    if (diff[idx] == 0) document.getElementById("tag").innerHTML += "<span class=\"scbl\" style=\"background-color: #fe4c61;\">J&nbsp;组</span>";
+                    else if (diff[idx] == 1) document.getElementById("tag").innerHTML += "&nbsp;<span class=\"scbl\" style=\"background-color: #3498db;\">S&nbsp;组</span>";
+                    document.getElementById("tag").innerHTML += "&nbsp;<span class=\"scbl\" style=\"background-color: #52c41a;\">" + yr[idx] + "</span>";
+                    if (lx[idx] == 0) document.getElementById("tag").innerHTML += "&nbsp;<span class=\"scbl\" style=\"background-color: #9d3dcf;\">真题</span>";
+                    else if (lx[idx] == 1) document.getElementById("tag").innerHTML += "&nbsp;<span class=\"scbl\" style=\"background-color: #f39c11;\">模拟</span>";
+                    else if (lx[idx] == 2) document.getElementById("tag").innerHTML += "&nbsp;<span class=\"scbl\" style=\"background-color: #ffc116;\">校内</span>";
+                }
+            }
+        } else {
+            document.getElementById("app").style.display = "none";
+            document.getElementById("list").style.display = "block";
+        }
+        document.getElementById("num").innerHTML = answer.length;
+        search();
+        function submit() {
+            var score = 0.0;
+            var myans = document.getElementById("myans").value;
+            if (myans.length != answer.length) {
+                alert("长度错误！");
+                return;
+            }
+            for (var i = 0; i < answer.length; i++) {
+                if (answer[i] == 'T' || answer[i] == 'F') {
+                    if (myans[i] != 'T' && myans[i] != 'F') {
+                        alert("格式错误！");
+                        return;
+                    }
+                } else {
+                    if (myans[i] != 'A' && myans[i] != 'B' && myans[i] != 'C' && myans[i] != 'D') {
+                        alert("格式错误！");
+                        return;
+                    }
+                }
+            }
+            document.getElementById("result").innerHTML = "等待评分...";
+            setTimeout(function () {
+                document.getElementById("result").innerHTML = "正在评分...";
+                for (var i = 0; i < answer.length; i++) {
+                    if (myans[i] == answer[i]) {
+                        var pid = i + 1;
+                        score += sc[i];
+                    }
+                }
+                var nowday = new Date();
+                var year = nowday.getFullYear();
+                var month = ('0' + (nowday.getMonth() + 1)).slice(-2);
+                var day = ('0' + nowday.getDate()).slice(-2);
+                var hours = ('0' + nowday.getHours()).slice(-2);
+                var minutes = ('0' + nowday.getMinutes()).slice(-2);
+                var seconds = ('0' + nowday.getSeconds()).slice(-2);
+                document.getElementById("result").innerHTML = "<p>提交时间：" + year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + "</p>";
+                document.getElementById("result").innerHTML += "<p id=\"my_ans\">我的答案：</p>";
+                var wrong = [];
+                for (var i = 0; i < answer.length; i++) {
+                    if (myans[i] == answer[i]) document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>";
+                    else document.getElementById("my_ans").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
+                }
+                //document.getElementById("result").innerHTML += "<p>正确答案：" + answer + "</p>";
+                if (wrong.length > 0) {
+                    var wrid = "错题编号：";
+                    for (var i = 0; i < wrong.length; i++) {
+                        if (i != 0) wrid += "&nbsp;&nbsp;";
+                        wrid += wrong[i];
+                    }
+                    document.getElementById("result").innerHTML += "<p>" + wrid + "</p>";
+                }
+                document.getElementById("result").innerHTML += "<p>成绩：" + score + "</p>";
+                savearr[parseInt(window.location.href.split("?id=")[1]) - 1001] = myans;
+                localStorage.setItem("liyuanchen2021-chusai", savearr);
+                tim[parseInt(window.location.href.split("?id=")[1]) - 1001] = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+                localStorage.setItem("liyuanchen2021-chusai9", tim);
+                rec1.push(parseInt(window.location.href.split("?id=")[1]) - 1001);
+                rec2.push(myans);
+                rec3.push(score);
+                rec4.push(year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds);
+                localStorage.setItem("liyuanchen2021-chusai11", rec1);
+                localStorage.setItem("liyuanchen2021-chusai12", rec2);
+                localStorage.setItem("liyuanchen2021-chusai13", rec3);
+                localStorage.setItem("liyuanchen2021-chusai14", rec4);
+                if (document.getElementById("best").style.display == "none") document.getElementById("best").style.display = "inline-block", document.getElementById("bestscore").innerHTML = score;
+                else if (score > parseInt(document.getElementById("bestscore").innerHTML)) document.getElementById("bestscore").innerHTML = score;
+                best[parseInt(window.location.href.split("?id=")[1]) - 1001] = document.getElementById("bestscore").innerHTML;
+                localStorage.setItem("liyuanchen2021-chusai1", best);
+            }, 3000);
+        }
+        function reset() { if (document.getElementById("myans").value != "") if (confirm("确定重置？")) document.getElementById("myans").value = "", update_len(); }
+        function search() {
+            var Kword = document.getElementById("search_keyword").value;
+            var n = strlist.length;
+            if (strlist[0].indexOf("[1001]") == -1) for (i = 0; i < n; i++) strlist[i] = "[" + (String)(1001 + i) + "] " + strlist[i];
+            document.getElementById("tot_task").innerHTML = (String)(n);
+            var i, cnt = 0;
+            for (i = 0; i < n; i++) {
+                if (document.getElementById("se1").value != -1 && document.getElementById("se1").value != diff[i]) continue;
+                if (document.getElementById("se2").value != -1 && document.getElementById("se2").value != yr[i]) continue;
+                if (document.getElementById("se3").value != -1 && document.getElementById("se3").value != lx[i]) continue;
+                if (hide[i] == 0 && strlist[i].indexOf(Kword) != -1) cnt++;
+            }
+            document.getElementById("tot").innerHTML = cnt, document.getElementById("results").innerHTML = "";
+            for (i = 0; i < n; i++) {
+                if (document.getElementById("se1").value != -1 && document.getElementById("se1").value != diff[i]) continue;
+                if (document.getElementById("se2").value != -1 && document.getElementById("se2").value != yr[i]) continue;
+                if (document.getElementById("se3").value != -1 && document.getElementById("se3").value != lx[i]) continue;
+                if (hide[i] == 0 && strlist[i].indexOf(Kword) != -1) {
+                    var result_str = "";
+                    if (best[i] != "" && best[i] != undefined) {
+                        if (best[i] >= 80) result_str += "<p><a href=\"?id=" + (String)(1000 + i + 1) + "\"><span class=\"scbl\" style=\"background-color: #52c41a;\">" + best[i] + "</span>";
+                        else if (best[i] >= 60) result_str += "<p><a href=\"?id=" + (String)(1000 + i + 1) + "\"><span class=\"scbl\" style=\"background-color: #fadb14;\">" + best[i] + "</span>";
+                        else if (best[i] >= 30) result_str += "<p><a href=\"?id=" + (String)(1000 + i + 1) + "\"><span class=\"scbl\" style=\"background-color: #f39c11;\">" + best[i] + "</span>";
+                        else result_str += "<p><a href=\"?id=" + (String)(1000 + i + 1) + "\"><span class=\"scbl\" style=\"background-color: #e74c3c;\">" + best[i] + "</span>";
+                    }
+                    else result_str += "<p><a href=\"?id=" + (String)(1000 + i + 1) + "\"><span class=\"scbl\" style=\"background-color: #7a7a7a;\">—</span>";
+                    result_str += "&nbsp;" + strlist[i];
+                    if (diff[i] == 0) result_str += "&nbsp;<span class=\"scbl\" style=\"background-color: #fe4c61;\">J&nbsp;组</span>";
+                    else if (diff[i] == 1) result_str += "&nbsp;<span class=\"scbl\" style=\"background-color: #3498db;\">S&nbsp;组</span>";
+                    result_str += "&nbsp;<span class=\"scbl\" style=\"background-color: #52c41a;\">" + yr[i] + "</span>";
+                    if (lx[i] == 0) result_str += "&nbsp;<span class=\"scbl\" style=\"background-color: #9d3dcf;\">真题</span>";
+                    else if (lx[i] == 1) result_str += "&nbsp;<span class=\"scbl\" style=\"background-color: #f39c11;\">模拟</span>";
+                    else if (lx[i] == 2) result_str += "&nbsp;<span class=\"scbl\" style=\"background-color: #ffc116;\">校内</span>";
+                    result_str += "</a></p>";
+                    document.getElementById("results").innerHTML += result_str;
+                }
+            }
+            if (Kword.length == 4) {
+                var flag = 1;
+                for (var i = 0; i < 4; i++) if (Kword[i] < '0' || Kword[i] > '9') { flag = 0; break; }
+                if (flag == 1) if (parseInt(Kword) >= 1001 && parseInt(Kword) <= 1001 + n - 1) setTimeout(function () { var newWindow = window.open("?id=" + Kword, "_self"); }, 100);
+            }
+        }
+        function back() { var newWindow = window.open(window.location.href.split("?")[0], "_self"); }
+        function press_key() {
+            var code = event.keyCode;
+            if (document.getElementById("list").style.display != "none") {
+                if (code == 13) search();
+            } else if (document.getElementById("app").style.display != "none") {
+                update_len();
+                if (code == 13) submit();
+            }
+        }
+        function show_error(err_content) {
+            document.getElementById("app").style.display = "none";
+            document.getElementById("list").style.display = "none";
+            document.getElementById("err").style.display = "block";
+            document.getElementById("err-content").innerHTML = err_content;
+        }
+        function appendA() { document.getElementById("myans").value += "A"; update_len(); }
+        function appendB() { document.getElementById("myans").value += "B"; update_len(); }
+        function appendC() { document.getElementById("myans").value += "C"; update_len(); }
+        function appendD() { document.getElementById("myans").value += "D"; update_len(); }
+        function appendT() { document.getElementById("myans").value += "T"; update_len(); }
+        function appendF() { document.getElementById("myans").value += "F"; update_len(); }
+        function appendBack() {
+            var nowv = document.getElementById("myans").value;
+            if (nowv.length) document.getElementById("myans").value = nowv.substr(0, nowv.length - 1);
+            update_len();
+        }
+        function update_len() {
+            document.getElementById("mylen").innerHTML = document.getElementById("myans").value.length;
+        }
+    </script>
+</body>
+
+</html>
