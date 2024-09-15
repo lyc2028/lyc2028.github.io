@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>首页 - lyc2028</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="materialize.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #bg {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            object-fit: cover;
+            display: inline-block;
+            overflow: hidden;
+        }
+        #bg>img {
+            height: 100%;
+            width: 100%;
+        }
+        #bg2 {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 0;
+            object-fit: cover;
+            display: inline-block;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 50%);
+            color: white;
+        }
+        #content {
+            padding-top: 30px;
+            padding-bottom: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #web-title {
+            text-align: center;
+            height: 60px;
+            width: 100%;
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        #inner-content {
+            display: block;
+            height: --webkit-fill-available;
+            width: --webkit-fill-available;
+            overflow: auto;
+            padding-top: 5px;
+        }
+        .main-block {
+            height: 50px;
+            border-radius: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .inner_block {
+            height: 50px;
+            border-radius: 10px;
+            box-shadow: none;
+            transition: 0.5s box-shadow;
+            color: white;
+            font-size: 24px;
+            padding-top: 5px;
+            text-align: center;
+        }
+        .inner_block:hover {
+            box-shadow: 0px 0px 5px 5px #555;
+            transition: 0.5s box-shadow;
+        }
+        #inner_block_1 {
+            background-color: rgba(0, 118, 214, 0.7);
+        }
+        #inner_block_2 {
+            background-color: rgba(68, 68, 68, 0.7);
+        }
+        #inner_block_3 {
+            background-color: rgba(68, 68, 68, 0.7);
+        }
+        #inner_block_4 {
+            background-color: rgba(68, 68, 68, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div id="bg"><img src="index-background.png"></div>
+    <div id="bg2">
+        <div id="content">
+            <div id="web-title">lyc2028</div>
+            <div id="inner-content">
+                <div class="row">
+                    <div class="col s3 main_block">
+                        <a href="csp-r1/index.html" target="_self">
+                            <div class="inner_block" id="inner_block_1">
+                                初赛题库
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col s3 main_block">
+                        <a href="" target="_self">
+                            <div class="inner_block" id="inner_block_2">
+                                敬请期待
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col s3 main_block">
+                        <a href="" target="_self">
+                            <div class="inner_block" id="inner_block_3">
+                                敬请期待
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col s3 main_block">
+                        <a href="" target="_self">
+                            <div class="inner_block" id="inner_block_4">
+                                敬请期待
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
