@@ -53,11 +53,25 @@
             overflow: auto;
             padding-top: 5px;
         }
+        #ul {
+            position: fixed;
+            top: 5px;
+            left: 10px;
+            color: white;
+        }
         .main-block {
             height: 50px;
             border-radius: 10px;
             margin-left: 5px;
             margin-right: 5px;
+        }
+        .top-link {
+            color: white;
+            transition: 0.5s color;
+        }
+        .top-link:hover {
+            color: #aaa;
+            transition: 0.5s color;
         }
         .inner_block {
             height: 50px;
@@ -88,8 +102,9 @@
     </style>
 </head>
 <body>
-    <div id="bg"><img src="https://hydro.ac/file/9120/index-background.png"></div>
+    <div id="bg"><img src="index-background.png"></div>
     <div id="bg2">
+        <div id="ul">当前为主站，<a class="top-link" href="https://lyc2028.us.kg">点击前往镜像站</a></div>
         <div id="content">
             <div id="web-title">lyc2028</div>
             <div id="inner-content">
@@ -126,4 +141,9 @@
             </div>
         </div>
     </div>
+    <script>
+        if (location.href.indexOf("lyc2028.us.kg") != -1) {
+            document.getElementById("ul").innerHTML = "当前为镜像站，<a class=\"top-link\" href=\"https://lyc2028.github.io\">点击前往主站</a>";
+        }
+    </script>
 </body>
