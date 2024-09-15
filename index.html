@@ -73,6 +73,9 @@
             color: #aaa;
             transition: 0.5s color;
         }
+        #now-url {
+            color: #aaa;
+        }
         .inner_block {
             height: 50px;
             border-radius: 10px;
@@ -102,11 +105,11 @@
     </style>
 </head>
 <body>
-    <div id="bg"><img src="https://hydro.ac/file/9120/index-background.png"></div>
+    <div id="bg"><img src="index-background.png"></div>
     <div id="bg2">
         <div id="ul">当前为主站，<a class="top-link" href="https://lyc2028.us.kg">点击前往镜像站</a></div>
         <div id="content">
-            <div id="web-title">lyc2028</div>
+            <div id="web-title">lyc2028<span id="now-url">.github.io</span></div>
             <div id="inner-content">
                 <div class="row">
                     <div class="col s3 main_block">
@@ -143,6 +146,7 @@
     </div>
     <script>
         if (location.href.indexOf("lyc2028.us.kg") != -1) {
+            document.getElementById("now-url").innerHTML = ".us.kg";
             document.getElementById("ul").innerHTML = "当前为镜像站，<a class=\"top-link\" href=\"https://lyc2028.github.io\">点击前往主站</a>";
         }
     </script>
