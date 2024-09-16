@@ -58,11 +58,18 @@
             overflow: auto;
             padding-top: 5px;
         }
-        #ul {
+        #ur {
             position: fixed;
             top: 5px;
-            left: 10px;
+            right: 10px;
             color: white;
+        }
+        #down {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
         }
         .main-block {
             height: 50px;
@@ -95,54 +102,35 @@
             box-shadow: 0px 0px 5px 5px #555;
             transition: 0.5s box-shadow;
         }
-        #inner_block_1 {
+        .bl0 {
+            background-color: rgba(68, 68, 68, 0.7);
+        }
+        .bl1 {
             background-color: rgba(0, 118, 214, 0.7);
-        }
-        #inner_block_2 {
-            background-color: rgba(68, 68, 68, 0.7);
-        }
-        #inner_block_3 {
-            background-color: rgba(68, 68, 68, 0.7);
-        }
-        #inner_block_4 {
-            background-color: rgba(68, 68, 68, 0.7);
         }
     </style>
 </head>
 <body>
-    <div id="bg"><img src="https://hydro.ac/file/9120/index-background.png"></div>
+    <div id="bg"><img src="index-background.png"></div>
     <div id="bg2">
-        <div id="ul">当前为主站，<a class="top-link" href="https://lyc2028.us.kg">点击前往镜像站</a></div>
+        <div id="ur"></div>
+        <div id="down">Powered by <a href="https://github.com/lyc2028/lyc2028.github.io" class="top-link" target="_blank">lyc2028</a></div>
         <div id="content">
-            <div id="web-title">lyc2028<span id="now-url">.github.io</span></div>
+            <div id="web-title">lyc2028<span id="now-url">.us.kg</span></div>
             <div id="sub-title">为 BDFZ 搭建的工具站</div>
             <div id="inner-content">
                 <div class="row">
                     <div class="col s3 main_block">
                         <a title="BDFZ 信息竞赛初赛题库" href="csp-r1/index.html" target="_self">
-                            <div class="inner_block" id="inner_block_1">
+                            <div class="inner_block bl1" id="b1">
                                 初赛题库
                             </div>
                         </a>
                     </div>
                     <div class="col s3 main_block">
-                        <a href="" target="_self">
-                            <div class="inner_block" id="inner_block_2">
-                                敬请期待
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s3 main_block">
-                        <a href="" target="_self">
-                            <div class="inner_block" id="inner_block_3">
-                                敬请期待
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col s3 main_block">
-                        <a href="" target="_self">
-                            <div class="inner_block" id="inner_block_4">
-                                敬请期待
+                        <a title="即将发布，敬请期待" href="" target="_self">
+                            <div class="inner_block bl0" id="b2">
+                                网页导航
                             </div>
                         </a>
                     </div>
@@ -151,9 +139,6 @@
         </div>
     </div>
     <script>
-        if (location.href.indexOf("lyc2028.us.kg") != -1) {
-            document.getElementById("now-url").innerHTML = ".us.kg";
-            document.getElementById("ul").innerHTML = "当前为镜像站，<a class=\"top-link\" href=\"https://lyc2028.github.io\">点击前往主站</a>";
-        }
+        
     </script>
 </body>
