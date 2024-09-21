@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>随机选人 - lyc2028</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/materialize.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #bg {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            object-fit: cover;
+            display: inline-block;
+            overflow: hidden;
+        }
+        #bg>img {
+            height: 100%;
+            width: 100%;
+        }
+        #bg2 {
+            position: absolute;
+            height: -webkit-fill-available;
+            width: -webkit-fill-available;
+            z-index: 0;
+            object-fit: cover;
+            display: inline-block;
+            overflow: hidden;
+            color: black;
+        }
+        #content {
+            padding-top: 30px;
+            padding-bottom: 30px;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: -webkit-fill-available;
+            width: -webkit-fill-available;
+        }
+        #web-title {
+            text-align: center;
+            height: 60px;
+            width: 100%;
+            font-size: 48px;
+            text-align: center;
+        }
+        #inner-content {
+            position: relative;
+            display: block;
+            margin-top: 30px;
+            margin-bottom: 120px;
+            height: -webkit-fill-available;
+            width: -webkit-fill-available;
+            padding-top: 5px;
+            border-radius: 10px;
+        }
+        #main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            height: 190px;
+            width: 800px;
+            border-radius: 10px;
+            background-color: #ccc;
+            padding: 20px;
+        }
+        #screen {
+            height: 80px;
+            width: -webkit-fill-available;
+            background-color: #666;
+            font-size: 48px;
+            text-align: center;
+            padding-top: 10px;
+            color: white;
+            border-radius: 10px;
+        }
+        #bt-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .bt {
+            height: 50px;
+            width: 200px;
+            font-size: 24px;
+            padding-bottom: 4px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border-radius: 10px;
+            border-style: none;
+            font-weight: bold;
+            color: white;
+            box-shadow: none;
+            transition: 0.5s box-shadow;
+        }
+        .bt:hover {
+            box-shadow: 0px 0px 5px 5px #888;
+            transition: 0.5s box-shadow;
+        }
+        #bt1 {
+            background-color: rgb(7, 104, 231);
+        }
+        #bt2 {
+            background-color: rgb(14, 130, 134);
+        }
+        #ul {
+            position: fixed;
+            top: 5px;
+            left: 10px;
+            color: black;
+        }
+        #ur {
+            position: fixed;
+            top: 5px;
+            right: 10px;
+            color: black;
+        }
+        #down {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .main-block {
+            height: 50px;
+            border-radius: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .top-link {
+            color: black;
+            transition: 0.5s color;
+            text-decoration: none;
+        }
+        .top-link:hover {
+            color: #555;
+            transition: 0.5s color;
+        }
+        #alert-container {
+            background-color: rgba(0, 0, 0, 50%);
+            z-index: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+        #alert-main {
+            background-color: #fff;
+            z-index: 2;
+            border-radius: 10px;
+            width: 800px;
+            height: 500px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        #alert-title {
+            text-align: center;
+            height: 30px;
+            width: 100%;
+            background-color: #ccc;
+            border-radius: 10px 10px 0 0;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: auto;
+        }
+        #alert-close {
+            float: right;
+        }
+        #alert-content {
+            height: 470px;
+            width: 100%;
+            padding: 10px;
+            overflow: auto;
+        }
+        textarea {
+            height: 410px;
+            width: -webkit-fill-available;
+            padding: 10px;
+            border-radius: 10px;
+            resize: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div id="bg2">
+        <div id="ul"><a href="/" class="top-link" target="_self">⬅返回主页</a></div>
+        <div id="content">
+            <div id="web-title">🎰随机选人</div>
+            <div id="inner-content">
+                <div id="main">
+                    <div id="screen"></div>
+                    <div id="bt-container"><button class="bt" id="bt1" onclick="start()">开始选人</button><span style="display: inline-block; width: 20px;"></span><button class="bt" id="bt2" onclick="show()">名单设置</button></div>
+                </div>
+            </div>
+        </div>
+        <div id="down">Powered by <a href="https://github.com/lyc2028/lyc2028.github.io" class="top-link" target="_blank">lyc2028</a></div>
+    </div>
+    <div id="alert-container">
+        <div id="alert-main">
+            <div id="alert-title">
+                <span id="alert-title-main">名单设置</span>
+                <img title="关闭" id="alert-close" src="https://s21.ax1x.com/2024/09/21/pAMGvZt.png" height="20px" width="20px" onmouseover="change_red()" onmouseout="change()" onclick="back()">
+            </div>
+            <div id="alert-content">
+                <p>请在下方输入名单，姓名间以英文半角逗号分隔。</p>
+                <p style="height: 10px;"></p>
+                <textarea id="list"></textarea>
+            </div>
+        </div>
+    </div>
+    <script>
+        if (localStorage.getItem("lyc2028-app-random") == undefined) localStorage.setItem("lyc2028-app-random", "");
+        var namelist = localStorage.getItem("lyc2028-app-random").split(",");
+        if (namelist.length < 3) namelist = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40"];
+        check_url();
+        window.addEventListener('hashchange', check_url);
+        function check_url() {
+            if (window.location.href.indexOf("#") != -1) {
+                if (window.location.href.split("#")[1] == "settings") {
+                    document.getElementById("alert-container").style.display = "block";
+                    document.getElementById("list").value = namelist;
+                } else {
+                    document.getElementById("alert-container").style.display = "none";
+                }
+            } else {
+                document.getElementById("alert-container").style.display = "none";
+            }
+        }
+        function start() {
+            document.getElementById("screen").style.backgroundColor = "#666";
+            document.getElementById("bt1").style.backgroundColor = "#888";
+            document.getElementById("bt1").innerHTML = "3s";
+            document.getElementById("screen").innerHTML = namelist[rand(0, namelist.length - 1)];
+            var now = setInterval(() => {
+                document.getElementById("screen").innerHTML = namelist[rand(0, namelist.length - 1)];
+            }, 125);
+            var now1 = setInterval(() => {
+                document.getElementById("bt1").innerHTML = String(parseInt(document.getElementById("bt1").innerHTML.split("s")[0]) - 1) + "s";
+            }, 1000);
+            setTimeout(() => {
+                clearInterval(now);
+                clearInterval(now1);
+                document.getElementById("screen").style.backgroundColor = "blue";
+                document.getElementById("bt1").style.backgroundColor = "rgb(7, 104, 231)";
+                document.getElementById("bt1").innerHTML = "开始点名";
+            }, 3000);
+        }
+        function rand(n, m) {
+            return Math.floor(Math.random() * (m - n + 1)) + n;
+        }
+        function show() {
+            var newWindow = window.open(window.location.href.split("#")[0] + "#settings", "_self");
+        }
+        function back() {
+            if (document.getElementById("list").value.split(",").length < 3) {
+                alert("名单长度不应少于 3");
+                return;
+            }
+            namelist = document.getElementById("list").value.split(",");
+            localStorage.setItem("lyc2028-app-random", namelist);
+            var newWindow = window.open(window.location.href.split("#")[0] + "#", "_self");
+        }
+        function change() {
+            document.getElementById("alert-close").src = "https://s21.ax1x.com/2024/09/21/pAMGvZt.png";
+        }
+        function change_red() {
+            document.getElementById("alert-close").src = "https://s21.ax1x.com/2024/09/21/pAMGxdP.png";
+        }
+    </script>
+</body>
