@@ -22,11 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 //试卷标题、难度、年份、类型、是否隐藏
-var strlist = ["CSP-J1 2021", "CSP-S1 2021", "CSP-J1 2022", "CSP-S1 2022", "洛谷 SCP 2023 第一轮（初赛 J 组）模拟", "洛谷 SCP 2023 第一轮（初赛 S 组）模拟", "20240802S组初赛模拟", "20240808S组初赛模拟", "洛谷 SCP 2024 第一轮（初赛 J 组）模拟", "洛谷 SCP 2024 第一轮（初赛 S 组）模拟"];
-var diff = [0, 1, 0, 1, 0, 1, 1, 1, 0, 1];
-var yr = [2021, 2021, 2022, 2022, 2023, 2023, 2024, 2024, 2024, 2024];
-var lx = [0, 0, 0, 0, 1, 1, 2, 2, 1, 1];
-var hide = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var strlist = ["CSP-J1 2021", "CSP-S1 2021", "CSP-J1 2022", "CSP-S1 2022", "洛谷 SCP 2023 第一轮（初赛 J 组）模拟", "洛谷 SCP 2023 第一轮（初赛 S 组）模拟", "20240802S组初赛模拟", "20240808S组初赛模拟", "洛谷 SCP 2024 第一轮（初赛 J 组）模拟", "洛谷 SCP 2024 第一轮（初赛 S 组）模拟", "SCP 2022 第一轮（初赛 J 组）模拟", "SCP 2022 第一轮（初赛 S 组）模拟", "【民间答案】CSP-J1 2024", "【民间答案】CSP-S1 2024"];
+var diff = [0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1];
+var yr = [2021, 2021, 2022, 2022, 2023, 2023, 2024, 2024, 2024, 2024, 2022, 2022, 2024, 2024];
+var lx = [0, 0, 0, 0, 1, 1, 2, 2, 1, 1, 1, 1, 0, 0];
+var hide = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0];
 
 //评测脚本
 function get_judge_data() {
@@ -143,6 +143,34 @@ function get_judge_data() {
             var pid = i + 1;
             if (pid <= 15) sc[i] = 2.0;
             else if (pid == 32) sc[i] = 4.0;
+            else if (answer[i] == 'T' || answer[i] == 'F') sc[i] = 1.5;
+            else sc[i] = 3.0;
+        }
+    }
+    if (now == "1011") {
+
+    }
+    if (now == "1012") {
+        answer = "CDABACBDDAACCCBFTFTBCFFFDBAFTTCBDACDBCDBDCA";
+        information = "题目下载：<a href=\"https://www.luogu.com.cn/fe/api/problem/downloadAttachment/r90r5k4s?contestId=79420\">https://www.luogu.com.cn/fe/api/problem/downloadAttachment/r90r5k4s?contestId=79420</a>";
+        for (var i = 0; i < answer.length; i++) {
+            var pid = i + 1;
+            if (pid <= 15) sc[i] = 2.0;
+            else if (pid == 26 || pid == 27 || pid == 31 || pid == 32) sc[i] = 2.0;
+            else if (answer[i] == 'T' || answer[i] == 'F') sc[i] = 2.0;
+            else sc[i] = 3.0;
+        }
+    }
+    if (now == "1013") {
+        
+    }
+    if (now == "1014") {
+        answer = "AACBBBDABDACBCDTFFBCTTTBCCTFTCACAAAAAAABAA";
+        information = "民间答案来自<a href=\"https://www.luogu.com.cn/discuss/931714\">洛谷</a>。题目下载：<a href=\"https://www.luogu.com.cn/fe/api/problem/downloadAttachment/akbfljio\">https://www.luogu.com.cn/fe/api/problem/downloadAttachment/akbfljio</a>";
+        for (var i = 0; i < answer.length; i++) {
+            var pid = i + 1;
+            if (pid <= 15 || pid == 23) sc[i] = 2.0;
+            else if (pid == 20 || pid == 32) sc[i] = 4.0;
             else if (answer[i] == 'T' || answer[i] == 'F') sc[i] = 1.5;
             else sc[i] = 3.0;
         }
