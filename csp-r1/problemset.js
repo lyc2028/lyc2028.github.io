@@ -166,7 +166,7 @@ function get_judge_data() {
     }
     if (now == "1014") {
         answer = "AACBBBDABDACBCDTFFBCTTTBCCTFTCACAAAAAAABAA";
-        information = "民间答案来自<a href=\"https://www.luogu.com.cn/discuss/931714\">洛谷</a>。题目下载：<a href=\"https://www.luogu.com.cn/fe/api/problem/downloadAttachment/akbfljio\">https://www.luogu.com.cn/fe/api/problem/downloadAttachment/akbfljio</a>";
+        information = "民间答案来自<a href=\"https://www.luogu.com.cn/discuss/931714\">洛谷</a>。题目下载：<a href=\"https://www.luogu.com.cn/fe/api/problem/downloadAttachment/akbfljio\">https://www.luogu.com.cn/fe/api/problem/downloadAttachment/akbfljio</a><br><br>免责声明：答案均为考后更新，并未造成泄题。";
         for (var i = 0; i < answer.length; i++) {
             var pid = i + 1;
             if (pid <= 15 || pid == 23) sc[i] = 2.0;
