@@ -21,6 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
+
+
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -56,22 +58,19 @@ SOFTWARE.
             color: white;
         }
         #content {
-            padding-top: 30px;
-            padding-bottom: 30px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             padding-left: 10px;
             padding-right: 10px;
         }
         #web-title {
-            text-align: center;
-            height: 60px;
+            height: auto;
             width: 100%;
             font-size: 48px;
             text-align: center;
         }
         #sub-title {
             text-align: center;
-            margin-top: 20px;
-            
         }
         #inner-content {
             display: block;
@@ -175,6 +174,13 @@ SOFTWARE.
                 <div id="op1">
                     <div class="row">
                         <div class="col s3 main_block">
+                            <a title="北京大学附属中学" href="https://www.pkuschool.edu.cn/" target="_blank">
+                                <div class="inner_block" style="background-color: rgba(159, 19, 28, 0.7);">
+                                    🔗学校首页
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
                             <a title="教学管理系统" href="https://bdfz.seiue.com/" target="_blank">
                                 <div class="inner_block" style="background: linear-gradient(to right, rgba(72, 184, 255, 0.7), rgba(70, 134, 255, 0.7));">
                                     🔗希悦
@@ -195,9 +201,11 @@ SOFTWARE.
                                 </div>
                             </a>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col s3 main_block">
                             <a href="app/random" target="_self">
-                                <div class="inner_block" style="background-color: rgba(187, 41, 41, 0.7);">
+                                <div class="inner_block" style="background-color: rgba(126, 172, 19, 0.7);">
                                     🎰随机选人
                                 </div>
                             </a>
@@ -207,13 +215,6 @@ SOFTWARE.
                 <div id="op2">
                     <div class="row">
                         <div class="col s3 main_block">
-                            <a title="BDFZ 信息竞赛初赛题库" href="csp-r1/index.html" target="_self">
-                                <div class="inner_block" style="background-color: rgba(0, 0, 255, 0.7);">
-                                    📚初赛题库
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col s3 main_block">
                             <a title="洛谷 | 计算机科学教育新生态" href="https://www.luogu.com.cn/" target="_blank">
                                 <div class="inner_block" style="background-color: rgba(91, 155, 213, 0.7);">
                                     🔗洛谷
@@ -221,16 +222,23 @@ SOFTWARE.
                             </a>
                         </div>
                         <div class="col s3 main_block">
-                            <a title="Codeforces" href="https://codeforces.com/" target="_blank">
+                            <a href="https://codeforces.com/" target="_blank">
                                 <div class="inner_block" style="background: linear-gradient(to right, rgba(245, 198, 57, 0.7), rgba(18, 127, 194, 0.7));">
                                     🔗Codeforces
                                 </div>
                             </a>
                         </div>
                         <div class="col s3 main_block">
-                            <a title="AtCoder" href="https://atcoder.jp/" target="_blank">
+                            <a href="https://atcoder.jp/" target="_blank">
                                 <div class="inner_block" style="background-color: rgba(34, 34, 34, 0.7);">
                                     🔗AtCoder
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
+                            <a title="BDFZ 信息竞赛初赛题库" href="csp-r1/index.html" target="_self">
+                                <div class="inner_block" style="background-color: rgba(58, 78, 190, 0.7);">
+                                    📚初赛题库
                                 </div>
                             </a>
                         </div>
@@ -240,18 +248,33 @@ SOFTWARE.
         </div>
     </div>
     <script>
-        document.getElementById("op2").style.display = "none";
+        check_url();
+        window.addEventListener('hashchange', check_url);
+        function check_url() {
+            if (window.location.href.indexOf("#") != -1) {
+                if (window.location.href.split("#")[1] == "oi") {
+                    document.getElementById("op1").style.display = "none";
+                    document.getElementById("op2").style.display = "block";
+                    document.getElementById("opt1").className = "opt";
+                    document.getElementById("opt2").className = "opt-active";
+                } else {
+                    document.getElementById("op1").style.display = "block";
+                    document.getElementById("op2").style.display = "none";
+                    document.getElementById("opt1").className = "opt-active";
+                    document.getElementById("opt2").className = "opt";
+                }
+            } else {
+                document.getElementById("op1").style.display = "block";
+                document.getElementById("op2").style.display = "none";
+                document.getElementById("opt1").className = "opt-active";
+                document.getElementById("opt2").className = "opt";
+            }
+        }
         function op1() {
-            document.getElementById("op1").style.display = "block";
-            document.getElementById("op2").style.display = "none";
-            document.getElementById("opt1").className = "opt-active";
-            document.getElementById("opt2").className = "opt";
+            var newWindow = window.open(window.location.href.split("#")[0] + "#", "_self");
         }
         function op2() {
-            document.getElementById("op1").style.display = "none";
-            document.getElementById("op2").style.display = "block";
-            document.getElementById("opt1").className = "opt";
-            document.getElementById("opt2").className = "opt-active";
+            var newWindow = window.open(window.location.href.split("#")[0] + "#oi", "_self");
         }
     </script>
 </body>
