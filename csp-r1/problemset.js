@@ -22,11 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 //试卷标题、难度、年份、类型、是否隐藏
-var strlist = ["CSP-J1 2021", "CSP-S1 2021", "CSP-J1 2022", "CSP-S1 2022", "洛谷 SCP 2023 第一轮（初赛 J 组）模拟", "洛谷 SCP 2023 第一轮（初赛 S 组）模拟", "20240802S组初赛模拟", "20240808S组初赛模拟", "洛谷 SCP 2024 第一轮（初赛 J 组）模拟", "洛谷 SCP 2024 第一轮（初赛 S 组）模拟", "SCP 2022 第一轮（初赛 J 组）模拟", "SCP 2022 第一轮（初赛 S 组）模拟", "【民间答案】CSP-J1 2024", "【民间答案】CSP-S1 2024"];
+var strlist = ["CSP-J1 2021", "CSP-S1 2021", "CSP-J1 2022", "CSP-S1 2022", "洛谷 SCP 2023 第一轮（初赛 J 组）模拟", "洛谷 SCP 2023 第一轮（初赛 S 组）模拟", "20240802S组初赛模拟", "20240808S组初赛模拟", "洛谷 SCP 2024 第一轮（初赛 J 组）模拟", "洛谷 SCP 2024 第一轮（初赛 S 组）模拟", "洛谷 SCP 2022 第一轮（初赛 J 组）模拟", "洛谷 SCP 2022 第一轮（初赛 S 组）模拟", "【民间答案】CSP-J1 2024", "【民间答案】CSP-S1 2024"];
 var diff = [0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1];
 var yr = [2021, 2021, 2022, 2022, 2023, 2023, 2024, 2024, 2024, 2024, 2022, 2022, 2024, 2024];
 var lx = [0, 0, 0, 0, 1, 1, 2, 2, 1, 1, 1, 1, 0, 0];
-var hide = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0];
+var hide = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 //评测脚本
 function get_judge_data() {
@@ -148,7 +148,15 @@ function get_judge_data() {
         }
     }
     if (now == "1011") {
-
+        answer = "CDABACBDBDABCDBFTFTCBFTFTBCFFFDBABADCAACDBC";
+        information = "题目下载：<a href=\"https://www.luogu.com.cn/fe/api/problem/downloadAttachment/vebi1stq?contestId=79418\">https://www.luogu.com.cn/fe/api/problem/downloadAttachment/vebi1stq?contestId=79418</a>";
+        for (var i = 0; i < answer.length; i++) {
+            var pid = i + 1;
+            if (pid <= 15) sc[i] = 2.0;
+            else if (pid == 26 || pid == 32 || pid == 33) sc[i] = 2.0;
+            else if (answer[i] == 'T' || answer[i] == 'F') sc[i] = 2.0;
+            else sc[i] = 3.0;
+        }
     }
     if (now == "1012") {
         answer = "CDABACBDDAACCCBFTFTBCFFFDBAFTTCBDACDBCDBDCA";
@@ -162,7 +170,15 @@ function get_judge_data() {
         }
     }
     if (now == "1013") {
-        
+        answer = "CABDDCDBBABADABTFTBATFFABAFTTBCDABDCDBBBBC";
+        information = "<strong style=\"color: red;\">本题库评测系统将于十一期间优化升级，优化前提交可能出现分数不准确的情况。优化后将支持同一道题目存在多个正确答案的情况，并可正常提交本试卷。</strong><br><br>民间答案来自<a href=\"https://www.luogu.com.cn/discuss/931714\">洛谷</a>。题目下载：<a href=\"https://www.luogu.com.cn/fe/api/problem/downloadAttachment/p9emei1t\">https://www.luogu.com.cn/fe/api/problem/downloadAttachment/p9emei1t</a><br><br>答案均为考后更新，并未造成泄题。";
+        for (var i = 0; i < answer.length; i++) {
+            var pid = i + 1;
+            if (pid <= 15 || pid == 23) sc[i] = 2.0;
+            else if (pid == 25 || pid == 32) sc[i] = 4.0;
+            else if (answer[i] == 'T' || answer[i] == 'F') sc[i] = 1.5;
+            else sc[i] = 3.0;
+        }
     }
     if (now == "1014") {
         answer = "AACBBBDABDACBCDTFFBCTTTBCCTFTCACAAAAAAABAA";
