@@ -246,6 +246,7 @@
     </div>
     <script src="init.js"></script>
     <script>
+        if (location.href.indexOf("?hide-sidebar") != -1) document.getElementById("left").style.display = "none", document.getElementById("right").style.left = "0";
         if (32 - (document.getElementsByTagName("tr").length - 2) == 0) document.getElementById("content").style.display = "none";
         else document.getElementById("remain").innerHTML = String(32 - (document.getElementsByTagName("tr").length - 2));
     </script>
