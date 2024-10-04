@@ -243,7 +243,10 @@ SOFTWARE.
                 show_error("试卷未找到");
             } else {
                 var information = "这里空空如也~";
+                var answer = "";
+                var rules = "";
                 get_judge_data();
+                var rule = rules.split(",");
                 if (answer.length == 0) {
                     show_error("试卷维护中");
                 } else {
@@ -260,8 +263,19 @@ SOFTWARE.
                         var score = 0.0;
                         var myans = savearr[idx];
                         for (var i = 0; i < answer.length; i++) {
-                            if (myans[i] == answer[i]) {
-                                var pid = i + 1;
+                            var pid = i + 1;
+                            if (answer[i] == '|') {
+                                score += sc[i];
+                            } else if (answer[i] == '*') {
+                                for (var j = 0; j < rule.length; j++) {
+                                    if (parseInt(rule[j].split(":")[0]) == pid) {
+                                        if (rule[j].split(":")[1].indexOf(myans[i]) != -1) {
+                                            score += sc[i];
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else if (myans[i] == answer[i]) {
                                 score += sc[i];
                             }
                         }
@@ -276,8 +290,19 @@ SOFTWARE.
                         document.getElementById("result").innerHTML += "<p id=\"my_ans\">我的答案：</p>";
                         var wrong = [];
                         for (var i = 0; i < answer.length; i++) {
-                            if (myans[i] == answer[i]) document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>";
-                            else document.getElementById("my_ans").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
+                            var pid = i + 1, flag1 = false;
+                            if (answer[i] == '|') {
+                                document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                            } else if (answer[i] == '*') {
+                                for (var j = 0; j < rule.length; j++) {
+                                    if (parseInt(rule[j].split(":")[0]) == pid) {
+                                        if (rule[j].split(":")[1].indexOf(myans[i]) != -1) document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                                    }
+                                }
+                            } else if (myans[i] == answer[i]) {
+                                document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                            }
+                            if (flag1 == false) document.getElementById("my_ans").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
                         }
                         //document.getElementById("result").innerHTML += "<p>正确答案：" + answer + "</p>";
                         if (wrong.length > 0) {
@@ -313,7 +338,7 @@ SOFTWARE.
                 return;
             }
             for (var i = 0; i < answer.length; i++) {
-                if (answer[i] == 'T' || answer[i] == 'F') {
+                if (answer[i] == 'T' || answer[i] == 'F' || answer[i] == '|') {
                     if (myans[i] != 'T' && myans[i] != 'F') {
                         alert("格式错误！");
                         return;
@@ -329,8 +354,19 @@ SOFTWARE.
             setTimeout(function () {
                 document.getElementById("result").innerHTML = "正在评分...";
                 for (var i = 0; i < answer.length; i++) {
-                    if (myans[i] == answer[i]) {
-                        var pid = i + 1;
+                    var pid = i + 1;
+                    if (answer[i] == '|') {
+                        score += sc[i];
+                    } else if (answer[i] == '*') {
+                        for (var j = 0; j < rule.length; j++) {
+                            if (parseInt(rule[j].split(":")[0]) == pid) {
+                                if (rule[j].split(":")[1].indexOf(myans[i]) != -1) {
+                                    score += sc[i];
+                                    break;
+                                }
+                            }
+                        }
+                    } else if (myans[i] == answer[i]) {
                         score += sc[i];
                     }
                 }
@@ -345,8 +381,19 @@ SOFTWARE.
                 document.getElementById("result").innerHTML += "<p id=\"my_ans\">我的答案：</p>";
                 var wrong = [];
                 for (var i = 0; i < answer.length; i++) {
-                    if (myans[i] == answer[i]) document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>";
-                    else document.getElementById("my_ans").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
+                    var pid = i + 1, flag1 = false;
+                    if (answer[i] == '|') {
+                        document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                    } else if (answer[i] == '*') {
+                        for (var j = 0; j < rule.length; j++) {
+                            if (parseInt(rule[j].split(":")[0]) == pid) {
+                                if (rule[j].split(":")[1].indexOf(myans[i]) != -1) document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                            }
+                        }
+                    } else if (myans[i] == answer[i]) {
+                        document.getElementById("my_ans").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                    }
+                    if (flag1 == false) document.getElementById("my_ans").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
                 }
                 //document.getElementById("result").innerHTML += "<p>正确答案：" + answer + "</p>";
                 if (wrong.length > 0) {
