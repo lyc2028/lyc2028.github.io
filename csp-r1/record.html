@@ -206,7 +206,10 @@ SOFTWARE.
                 show_error("记录未找到");
             } else {
                 var information = "这里空空如也~";
+                var answer = "";
+                var rules = "";
                 get_judge_data();
+                var rule = rules.split(",");
                 if (answer.length == 0) {
                     show_error("试卷维护中");
                 } else {
@@ -222,16 +225,38 @@ SOFTWARE.
                         var score = 0.0;
                         var myans = rec2[idx];
                         for (var i = 0; i < answer.length; i++) {
-                            if (myans[i] == answer[i]) {
-                                var pid = i + 1;
+                            var pid = i + 1;
+                            if (answer[i] == '|') {
+                                score += sc[i];
+                            } else if (answer[i] == '*') {
+                                for (var j = 0; j < rule.length; j++) {
+                                    if (parseInt(rule[j].split(":")[0]) == pid) {
+                                        if (rule[j].split(":")[1].indexOf(myans[i]) != -1) {
+                                            score += sc[i];
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else if (myans[i] == answer[i]) {
                                 score += sc[i];
                             }
                         }
                         document.getElementById("r2").innerHTML = "";
                         var wrong = [];
                         for (var i = 0; i < answer.length; i++) {
-                            if (myans[i] == answer[i]) document.getElementById("r2").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>";
-                            else document.getElementById("r2").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
+                            var pid = i + 1, flag1 = false;
+                            if (answer[i] == '|') {
+                                document.getElementById("r2").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                            } else if (answer[i] == '*') {
+                                for (var j = 0; j < rule.length; j++) {
+                                    if (parseInt(rule[j].split(":")[0]) == pid) {
+                                        if (rule[j].split(":")[1].indexOf(myans[i]) != -1) document.getElementById("r2").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                                    }
+                                }
+                            } else if (myans[i] == answer[i]) {
+                                document.getElementById("r2").innerHTML += "<span style=\"color: green;\">" + myans[i] + "</span>", flag1 = true;
+                            }
+                            if (flag1 == false) document.getElementById("r2").innerHTML += "<span style=\"color: red;\">" + myans[i] + "</span>", wrong.push(i + 1);
                         }
                         if (wrong.length > 0) {
                             var wrid = "";
