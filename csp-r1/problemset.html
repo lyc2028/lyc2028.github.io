@@ -421,7 +421,7 @@ SOFTWARE.
                 else if (score > parseInt(document.getElementById("bestscore").innerHTML)) document.getElementById("bestscore").innerHTML = score;
                 best[parseInt(window.location.href.split("?id=")[1]) - 1001] = document.getElementById("bestscore").innerHTML;
                 localStorage.setItem("liyuanchen2021-chusai1", best);
-            }, 3000);
+            }, 1000);
         }
         function reset() { if (document.getElementById("myans").value != "") if (confirm("确定重置？")) document.getElementById("myans").value = "", update_len(); }
         function search() {
