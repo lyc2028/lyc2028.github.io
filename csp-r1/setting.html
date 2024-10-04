@@ -169,11 +169,17 @@ SOFTWARE.
     <div id="right">
         <div id="app">
             <h2>🔧&nbsp;设置</h2>
+            <h3>清除本地缓存&nbsp;<button class="danger" onclick="clear_sto()">清除</button></h3>
             <h3>清除所有数据&nbsp;<button class="danger" onclick="clear_data()">清除</button></h3>
         </div>
     </div>
     <script src="init.js"></script>
     <script>
+        function clear_sto() {
+            if (confirm("确认清除本地缓存？此过程可能需要较长时间，但不会清除数据。")) {
+                window.location.replace(window.location.href);
+            }
+        }
         function clear_data() {
             if (confirm("数据清除后不可恢复，确认执行此操作？")) {
                 localStorage.removeItem("liyuanchen2021-chusai");
