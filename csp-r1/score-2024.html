@@ -1,6 +1,7 @@
 
 
 
+
 <!--MIT License: https://github.com/lyc2028/lyc2028.github.io/blob/main/LICENSE-->
 <!DOCTYPE html>
 <html>
@@ -125,8 +126,6 @@
             padding-bottom: 10px;
         }
     </style>
-    <script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 
 <body style="padding-left: 10px;">
@@ -152,8 +151,9 @@
             <p><a href="https://www.noi.cn/xw/2024-10-05/830650.shtml" target="_blank">对河北部分被认证者进行CSP-J/S2024第一轮重新认证的公告</a></p>
             <p><a href="https://www.noi.cn/xw/2024-09-23/830232.shtml" target="_blank">CCF关于CSP-J/S2024第一轮认证题目涉嫌泄露的公告</a></p>
             <h3>各省分数线</h3>
-            <p>当前 IP 属地：<span id="loc">--</span></p>
-            <p>以下为全国基准分数线及各省分数线（多数省份分数线已出），点击省份名称可查看具体信息。</p>
+            <p>以下为全国基准分数线及各省分数线，点击省份名称可查看具体信息。</p>
+            <p>除西藏、台湾暂未设立考点外，所有省份分数线均已出。</p>
+            <p><a href="https://www.noi.cn/gs/xw/sd/2024-09-27/830375.shtml" target="_blank">山东省</a>小学组第一轮分数线为 42 分。</p>
             <table border="1" style="text-align: center;">
                 <tr>
                     <td><b>省份</b></td>
@@ -358,25 +358,23 @@
                     <td>54.5</td>
                 </tr>
                 <tr>
-                    <td><a href="https://www.noi.cn/gs/xw/gd/2024-10-07/830662.shtml" target="_blank">广东</a></td>
+                    <td></td>
                     <td>2024-10-07 11:42:24</td>
                     <td>83.5</td>
                     <td>49.5</td>
                 </tr>
                 <tr>
-                    <td>新疆</td>
-                    <td>暂未发布</td>
-                    <td>--</td>
-                    <td>--</td>
+                    <td><a href="https://www.noi.cn/gs/xw/xj/2024-10-08/830565.shtml" target="_blank">新疆</a></td>
+                    <td>2024-10-08 13:05:09</td>
+                    <td>47</td>
+                    <td>35.5</td>
                 </tr>
             </table>
-            <p>西藏、台湾暂未设立考点</p>
         </div>
     </div>
     <script src="init.js"></script>
     <script>
         if (location.href.indexOf("?hide-sidebar") != -1) document.getElementById("left").style.display = "none", document.getElementById("right").style.left = "0";
-        document.getElementById("loc").innerHTML = returnCitySN.cname;
     </script>
 </body>
 
