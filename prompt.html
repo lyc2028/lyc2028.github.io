@@ -1,0 +1,118 @@
+
+
+<!--MIT License: https://github.com/lyc2028/lyc2028.github.io/blob/main/LICENSE-->
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>跳转提示 - lyc2028</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="materialize.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #bg {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+            object-fit: cover;
+            display: inline-block;
+            overflow: hidden;
+        }
+        #bg>img {
+            height: 100%;
+            width: 100%;
+        }
+        #bg2 {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            z-index: 0;
+            object-fit: cover;
+            display: inline-block;
+            overflow: hidden;
+            background-color: rgba(0, 0, 0, 50%);
+            color: white;
+        }
+        #content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -300px;
+            margin-top: -150px;
+            width: 600px;
+            height: 300px;
+            color: white;
+            background-color: rgba(8, 8, 8, 0.5);
+            text-align: center;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 10px;
+        }
+        #bt1 {
+            height: 40px;
+            border-radius: 10px;
+            box-shadow: none;
+            transition: 0.5s box-shadow;
+            background-color: blue;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            border-style: none;
+            outline-style: none;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #bt2 {
+            height: 40px;
+            border-radius: 10px;
+            box-shadow: none;
+            transition: 0.5s box-shadow;
+            background-color: blueviolet;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            border-style: none;
+            outline-style: none;
+            margin-left: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #bt3 {
+            height: 40px;
+            border-radius: 10px;
+            box-shadow: none;
+            transition: 0.5s box-shadow;
+            background-color: red;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            border-style: none;
+            outline-style: none;
+            margin-left: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        #bt1:hover, #bt2:hover, #bt3:hover {
+            box-shadow: 0px 0px 5px 5px #555;
+            transition: 0.5s box-shadow;
+        }
+    </style>
+</head>
+<body>
+    <div id="bg"><img src="https://s21.ax1x.com/2024/09/16/pAuIv9O.png"></div>
+    <div id="bg2">
+        <div id="content">
+            <div style="font-size: 48px; font-weight: bold; margin-top: 10px; margin-bottom: 40px;">温馨提示</div>
+            <div>您即将访问的页面包含与学习无关的内容，如视频、游戏、小说等。<br>使用学校平板访问此类内容属于违反<a href="https://pkuschool.yuque.com/infodesk/sbook/hx2mpfvnocadbneg" target="_blank"><span style="color: yellow; font-weight: bold;">黄色警戒</span></a>的行为，将按照学校规定处理。<br>请谨慎访问此页面，若要访问，请点击下方“确认跳转”按钮。</div>
+            <div style="margin-top: 50px;"><button id="bt1" onclick="prev_func()">返回上一页</button><button id="bt2" onclick="home_func()">返回主页</button><button id="bt3" onclick="go_func()">确认跳转</button></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("bt3").title = location.href.split("?url=")[1];
+        function prev_func() {var newWindow = window.history.go(-1);}
+        function home_func() {var newWindow = window.open("/", "_self");}
+        function go_func() {var newWindow = window.open(location.href.split("?url=")[1], "_self");}
+    </script>
+</body>
