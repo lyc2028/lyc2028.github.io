@@ -1,5 +1,7 @@
 
 <!--MIT License: https://github.com/lyc2028/lyc2028.github.io/blob/main/LICENSE-->
+
+
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -35,7 +37,7 @@
             color: white;
         }
         #content {
-            padding-top: 10px;
+            padding-top: 20px;
             padding-bottom: 20px;
             padding-left: 10px;
             padding-right: 10px;
@@ -140,14 +142,13 @@
     </style>
 </head>
 <body>
-    <div id="bg"><img src="https://s21.ax1x.com/2024/09/16/pAuIv9O.png"></div>
+    <div id="bg"><img src="https://s21.ax1x.com/2024/10/19/pAaF8OA.jpg"></div>
     <div id="bg2">
-        <div id="ur" style="padding-top: 5px;"><a href="https://badges.toozhao.com/stats/01J9DMMQS6NW56PT2SK5TGQF7V" target="_blank"><img src="https://badges.toozhao.com/badges/01J9DMMQS6NW56PT2SK5TGQF7V/green.svg" /></a></div>
         <div id="down">Github:&nbsp;<a href="https://github.com/lyc2028/lyc2028.github.io" class="top-link" target="_blank">lyc2028/lyc2028.github.io</a></div>
         <div id="content">
             <div id="web-title">lyc2028<span id="now-url">.us.kg</span></div>
             <div id="sub-title">为 BDFZ 搭建的工具站</div>
-            <div id="opts"><span id="opt1" class="opt-active" onclick="op1()">实用工具</span><span id="opt2" class="opt" onclick="op2()">信息竞赛</span></div>
+            <div id="opts"><span id="opt1" class="opt-active" onclick="show_op(1)">精选推荐</span><span id="opt2" class="opt-active" onclick="show_op(2)">实用工具</span><span id="opt3" class="opt-active" onclick="show_op(3)">常用链接</span><span id="opt4" class="opt" onclick="show_op(4)">信息竞赛</span></div>
             <div id="inner-content">
                 <div id="op1">
                     <div class="row">
@@ -168,7 +169,7 @@
                         <div class="col s3 main_block">
                             <a href="https://office.com/" target="_blank">
                                 <div class="inner_block" style="background: linear-gradient(to right, rgba(76, 195, 240, 0.7), rgba(28, 96, 174, 0.7), rgba(162, 118, 207, 0.7));">
-                                    🔗Office 365
+                                    🔗Microsoft 365
                                 </div>
                             </a>
                         </div>
@@ -188,23 +189,82 @@
                                 </div>
                             </a>
                         </div>
+                    </div>
+                </div>
+                <div id="op2">
+                    <div class="row">
                         <div class="col s3 main_block">
-                            <a title="暂缓开通，敬请期待" href="app/wallpapers" target="_self">
-                                <div class="inner_block" style="background-color: rgba(128, 128, 128, 0.7);">
-                                    ✨精选壁纸
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col s3 main_block">
-                            <a title="暂缓开通，敬请期待" href="house/color" target="_self">
-                                <div class="inner_block" style="background-color: rgba(128, 128, 128, 0.7);">
-                                    🎨书院色
+                            <a href="app/random" target="_self">
+                                <div class="inner_block" style="background-color: rgba(126, 172, 19, 0.7);">
+                                    🎰随机选人
                                 </div>
                             </a>
                         </div>
                     </div>
                 </div>
-                <div id="op2">
+                <div id="op3">
+                    <div class="row">
+                        <div class="col s3 main_block">
+                            <a title="北京大学附属中学" href="https://www.pkuschool.edu.cn/" target="_blank">
+                                <div class="inner_block" style="background-color: rgba(159, 19, 28, 0.7);">
+                                    🔗学校首页
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
+                            <a title="教学管理系统" href="https://bdfz.seiue.com/" target="_blank">
+                                <div class="inner_block" style="background: linear-gradient(to right, rgba(72, 184, 255, 0.7), rgba(70, 134, 255, 0.7));">
+                                    🔗希悦
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
+                            <a href="https://office.com/" target="_blank">
+                                <div class="inner_block" style="background: linear-gradient(to right, rgba(76, 195, 240, 0.7), rgba(28, 96, 174, 0.7), rgba(162, 118, 207, 0.7));">
+                                    🔗Microsoft 365
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
+                            <a href="https://pkuschool.yuque.com/dashboard" target="_blank">
+                                <div class="inner_block" style="background-color: rgba(31, 185, 106, 0.7);">
+                                    🔗语雀
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s3 main_block">
+                            <a title="通过《北大附中学生手册》查阅到学校各项管理制度，达成行为自律" href="https://pkuschool.yuque.com/infodesk/sbook" target="_blank">
+                                <div class="inner_block" style="background-color: rgba(128, 128, 128, 0.7);">
+                                    📘学生手册
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
+                            <a title="通过《高中学生事务手册》查询学校事务流程，自主完成各类事务的办理，主动解决自己在学校中遇到的各种问题" href="https://pkuschool.yuque.com/infodesk/handbook" target="_blank">
+                                <div class="inner_block" style="background-color: rgba(128, 128, 128, 0.7);">
+                                    📘高中学生事务手册
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
+                            <a title="通过《课程手册》了解课程体系、学分要求以及各个学院和部门开设的课程详情，在选课时更好地实现自主选择与自我规划" href="https://pkuschool.yuque.com/xqt6kg/eyss1l" target="_blank">
+                                <div class="inner_block" style="background-color: rgba(128, 128, 128, 0.7);">
+                                    📘课程手册
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col s3 main_block">
+                            <a title="提供SubIt社团的信息化经验技巧分享，为同学们的校园生活提供便利" href="https://pkuschool.yuque.com/subit/tips" target="_blank">
+                                <div class="inner_block" style="background-color: rgba(128, 128, 128, 0.7);">
+                                    💡SubIT tips
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="op4">
                     <div class="row">
                         <div class="col s3 main_block">
                             <a title="洛谷 | 计算机科学教育新生态" href="https://www.luogu.com.cn/" target="_blank">
@@ -243,30 +303,32 @@
         check_url();
         window.addEventListener('hashchange', check_url);
         function check_url() {
+            for (var i = 1; i <= 4; i++) {
+                document.getElementById("op" + String(i)).style.display = "none";
+                document.getElementById("opt" + String(i)).className = "opt";
+            }
             if (window.location.href.indexOf("#") != -1) {
-                if (window.location.href.split("#")[1] == "oi") {
-                    document.getElementById("op1").style.display = "none";
+                if (window.location.href.split("#")[1] == "tools") {
                     document.getElementById("op2").style.display = "block";
-                    document.getElementById("opt1").className = "opt";
                     document.getElementById("opt2").className = "opt-active";
+                } else if (window.location.href.split("#")[1] == "links") {
+                    document.getElementById("op3").style.display = "block";
+                    document.getElementById("opt3").className = "opt-active";
+                } else if (window.location.href.split("#")[1] == "oi") {
+                    document.getElementById("op4").style.display = "block";
+                    document.getElementById("opt4").className = "opt-active";
                 } else {
                     document.getElementById("op1").style.display = "block";
-                    document.getElementById("op2").style.display = "none";
                     document.getElementById("opt1").className = "opt-active";
-                    document.getElementById("opt2").className = "opt";
                 }
             } else {
                 document.getElementById("op1").style.display = "block";
-                document.getElementById("op2").style.display = "none";
                 document.getElementById("opt1").className = "opt-active";
-                document.getElementById("opt2").className = "opt";
             }
         }
-        function op1() {
-            var newWindow = window.open(window.location.href.split("#")[0] + "#", "_self");
-        }
-        function op2() {
-            var newWindow = window.open(window.location.href.split("#")[0] + "#oi", "_self");
+        function show_op(nowid) {
+            var nowlist = ["", "", "tools", "links", "oi"];
+            var newWindow = window.open(window.location.href.split("#")[0] + "#" + nowlist[nowid], "_self");
         }
     </script>
 </body>
