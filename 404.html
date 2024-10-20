@@ -1,9 +1,11 @@
 
+
 <!--MIT License: https://github.com/lyc2028/lyc2028.github.io/blob/main/LICENSE-->
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <title>首页 - lyc2028</title>
+    <title>404 - lyc2028</title>
+    <link rel="icon" href="https://s21.ax1x.com/2024/10/20/pAamnuF.png">
     <link rel="stylesheet" type="text/css" media="screen" href="materialize.css">
     <style>
         * {
@@ -38,59 +40,53 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            margin-left: -150px;
-            margin-top: -115px;
-            width: 300px;
-            height: 230px;
-            color: white;
+            margin-left: -300px;
+            margin-top: -150px;
+            width: 600px;
+            height: 300px;
+            background-color: rgba(0, 0, 0, 50%);
             text-align: center;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-radius: 10px;
+        }
+        .bt {
+            height: 40px;
+            border-radius: 10px;
+            box-shadow: none;
+            transition: 0.5s box-shadow;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            border-style: none;
+            outline-style: none;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .bt:hover {
+            box-shadow: 0px 0px 5px 5px #aaa;
+            transition: 0.5s box-shadow;
         }
         #bt1 {
-            height: 50px;
-            border-radius: 10px;
-            box-shadow: none;
-            transition: 0.5s box-shadow;
-            background-color: blue;
-            color: white;
-            font-size: 24px;
-            text-align: center;
-            border-style: none;
-            outline-style: none;
-            margin-top: 10px;
-            padding-left: 10px;
-            padding-right: 10px;
+            background-color: rgb(197, 170, 20);
         }
         #bt2 {
-            height: 50px;
-            border-radius: 10px;
-            box-shadow: none;
-            transition: 0.5s box-shadow;
-            background-color: blueviolet;
-            color: white;
-            font-size: 24px;
-            text-align: center;
-            border-style: none;
-            outline-style: none;
             margin-left: 10px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        #bt1:hover, #bt2:hover {
-            box-shadow: 0px 0px 5px 5px #555;
-            transition: 0.5s box-shadow;
+            background-color: rgb(201, 134, 33);
         }
     </style>
 </head>
 <body>
-    <div id="bg"><img src="https://s21.ax1x.com/2024/09/16/pAuIv9O.png"></div>
+    <div id="bg"><img src="https://s21.ax1x.com/2024/10/19/pAaF8OA.jpg"></div>
     <div id="bg2">
         <div id="content">
-            <div style="font-size: 72px; font-weight: bold;">4 0 4</div>
-            <div>您访问的页面不见了哦~</div>
-            <div style="margin-top: 10px;"><button id="bt1" onclick="prev_func()">返回上一页</button><button id="bt2" onclick="home_func()">返回主页</button></div>
+            <div style="font-size: 48px; font-weight: bold; margin-top: 10px; margin-bottom: 60px;">404 Not Found</div>
+            <div>您访问的页面不见了哦</div>
+            <div style="margin-top: 70px;"><button class="bt" id="bt1" onclick="prev_func()">返回上一页</button><button class="bt" id="bt2" onclick="home_func()">返回主页</button></div>
         </div>
     </div>
     <script>
+        document.getElementById("bt3").title = location.href.split("?url=")[1];
         function prev_func() {var newWindow = window.history.go(-1);}
         function home_func() {var newWindow = window.open("/", "_self");}
     </script>
