@@ -1,0 +1,52 @@
+/*MIT License: https://github.com/lyc2028/lyc2028.github.io/blob/main/LICENSE*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 50%);
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 100%);
+}
+button {
+    color: white;
+    border-style: none;
+    outline-style: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+.bt-blue {
+    background-color: hsl(214, 85%, 57%);
+    transition: 0.5s background-color;
+}
+.bt-blue:hover {
+    background-color: hsl(214, 85%, 41%);
+    transition: 0.5s background-color;
+}
+.bt-blue:focus {
+    background-color: hsl(214, 85%, 25%);
+    transition: 0.5s background-color;
+}
+.bt-red {
+    background-color: hsl(0, 71%, 57%);
+    transition: 0.5s background-color;
+}
+.bt-red:hover {
+    background-color: hsl(0, 71%, 41%);
+    transition: 0.5s background-color;
+}
+.bt-red:focus {
+    background-color: hsl(0, 71%, 25%);
+    transition: 0.5s background-color;
+}
