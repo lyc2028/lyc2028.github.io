@@ -135,7 +135,6 @@
             transition: 0.5s box-shadow;
         }
         #alert-container {
-            background-color: rgba(0, 0, 0, 50%);
             z-index: 1;
             position: fixed;
             top: 0;
@@ -156,6 +155,10 @@
             left: 0;
             right: 0;
             bottom: 0;
+            box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 30%);
+            outline-style: solid;
+            outline-width: 1px;
+            outline-color: #aaa;
         }
         #alert-title {
             text-align: center;
@@ -443,8 +446,8 @@
             </div>
             <div id="alert-content">
                 <div id="alert-options">
-                    <div id="s-opt1" class="alert-opt" onclick="s_change(1)">标签设置</div>
-                    <div id="s-opt2" class="alert-opt" onclick="s_change(2)">恢复初始设置</div>
+                    <div id="s-opt1" class="alert-opt" onclick="s_change(1)">🏷️标签设置</div>
+                    <div id="s-opt2" class="alert-opt" onclick="s_change(2)">🔄️恢复初始设置</div>
                 </div>
                 <div id="s-op1" class="alert-text">
                     <p>请根据自己的需求添加或删除标签。</p>
