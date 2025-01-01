@@ -1,7 +1,4 @@
-
-
 <!--MIT License: https://github.com/lyc2028/lyc2028.github.io/blob/main/LICENSE-->
-
 
 <!DOCTYPE html>
 <head>
@@ -9,11 +6,8 @@
     <title>首页 - lyc2028</title>
     <link rel="icon" href="https://s21.ax1x.com/2024/10/20/pAamnuF.png">
     <link rel="stylesheet" type="text/css" media="screen" href="materialize.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="ui.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
         #bg {
             position: absolute;
             height: 100%;
@@ -39,7 +33,7 @@
             color: white;
         }
         #content {
-            padding-top: 20px;
+            padding-top: 10px;
             padding-bottom: 20px;
             padding-left: 10px;
             padding-right: 10px;
@@ -55,7 +49,6 @@
         }
         #inner-content {
             display: block;
-            height: --webkit-fill-available;
             width: --webkit-fill-available;
             overflow: auto;
             padding-top: 5px;
@@ -141,11 +134,114 @@
             box-shadow: 0px 0px 5px 5px #555;
             transition: 0.5s box-shadow;
         }
+        #alert-container {
+            background-color: rgba(0, 0, 0, 50%);
+            z-index: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+        #alert-main {
+            background-color: #fff;
+            z-index: 2;
+            border-radius: 10px;
+            width: 800px;
+            height: 500px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        #alert-title {
+            text-align: center;
+            height: 30px;
+            width: 100%;
+            background-color: #ccc;
+            border-radius: 10px 10px 0 0;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: auto;
+        }
+        #alert-close {
+            float: right;
+        }
+        #alert-content {
+            height: 470px;
+            width: 100%;
+        }
+        #alert-options {
+            position: absolute;
+            top: 30px;
+            left: 0;
+            height: -webkit-fill-available;
+            width: 120px;
+            background-color: #ddd;
+            border-radius: 0 0 0 10px;
+        }
+        .alert-text {
+            position: absolute;
+            top: 30px;
+            left: 120px;
+            height: -webkit-fill-available;
+            width: -webkit-fill-available;
+            background-color: #fff;
+            border-radius: 0 0 10px 0;
+            padding: 10px;
+        }
+        .alert-active {
+            height: 30px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            width: -webkit-fill-available;
+            text-align: center;
+            background-color: #ccc;
+            cursor: default;
+            transition: 0.5s background-color;
+        }
+        .alert-opt {
+            height: 30px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            width: -webkit-fill-available;
+            text-align: center;
+            background-color: #ddd;
+            cursor: default;
+            transition: 0.5s background-color;
+        }
+        .alert-opt:hover {
+            background-color: #eee;
+            transition: 0.5s background-color;
+        }
+        #settings {
+            position: fixed;
+            top: 5px;
+            right: 5px;
+            height: 32px;
+            width: 32px;
+            cursor: pointer;
+            transform: rotate(0);
+            transition: 0.5s transform;
+        }
+        #settings:hover {
+            transform: rotate(180deg);
+            transition: 0.5s transform;
+        }
+        p {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <div id="bg"><img src="https://s21.ax1x.com/2025/01/01/pESClng.png"></div>
     <div id="bg2">
+        <div id="settings" title="设置" onclick="show_settings()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M12.132 15.404a3.364 3.364 0 1 0 0-6.728a3.364 3.364 0 0 0 0 6.728"/><path d="M20.983 15.094a9.4 9.4 0 0 1-1.802 3.1l-2.124-.482a7.25 7.25 0 0 1-2.801 1.56l-.574 2.079a9.5 9.5 0 0 1-1.63.149a9 9 0 0 1-2.032-.23l-.609-2.146a7.5 7.5 0 0 1-2.457-1.493l-2.1.54a9.4 9.4 0 0 1-1.837-3.33l1.55-1.722a7.2 7.2 0 0 1 .069-2.652L3.107 8.872a9.4 9.4 0 0 1 2.067-3.353l2.17.54A7.7 7.7 0 0 1 9.319 4.91l.574-2.124a9 9 0 0 1 2.17-.287c.585 0 1.17.054 1.745.16l.551 2.113c.83.269 1.608.68 2.296 1.217l2.182-.563a9.4 9.4 0 0 1 2.043 3.1l-1.48 1.607a7.4 7.4 0 0 1 .068 3.364z"/></g></svg></div>
         <div id="down">Github:&nbsp;<a href="https://github.com/lyc2028/lyc2028.github.io" class="top-link" target="_blank">lyc2028/lyc2028.github.io</a> | 背景图片由 AI 生成</div>
         <div id="content">
             <div id="web-title">lyc2028<span id="now-url">.us.kg</span></div>
@@ -339,7 +435,48 @@
             </div>
         </div>
     </div>
+    <div id="alert-container">
+        <div id="alert-main">
+            <div id="alert-title">
+                <span id="alert-title-main">设置</span>
+                <img title="关闭" id="alert-close" src="https://s21.ax1x.com/2024/09/21/pAMGvZt.png" height="20px" width="20px" onmouseover="change_red()" onmouseout="change()" onclick="close_settings()">
+            </div>
+            <div id="alert-content">
+                <div id="alert-options">
+                    <div id="s-opt1" class="alert-opt" onclick="s_change(1)">标签设置</div>
+                    <div id="s-opt2" class="alert-opt" onclick="s_change(2)">恢复初始设置</div>
+                </div>
+                <div id="s-op1" class="alert-text">
+                    <p>请根据自己的需求添加或删除标签。</p>
+                    <p><input type="checkbox" checked disabled> 精选推荐</p>
+                    <p><input type="checkbox" checked disabled> 实用工具</p>
+                    <p><input type="checkbox" checked disabled> 常用链接</p>
+                    <p><input type="checkbox" id="s0"> SubIT（由 SubIT 社团自主开发的产品）</p>
+                    <p><input type="checkbox" id="s1"> 信息竞赛（信息竞赛生必备的 OJ 和一些工具）</p>
+                </div>
+                <div id="s-op2" class="alert-text">
+                    <p>该操作将恢复初始设置，请谨慎操作。</p>
+                    <p><button class="bt-red" onclick="clear_settings()">恢复初始设置</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
+        document.getElementById("opt4").style.display = document.getElementById("opt5").style.display = "none";
+        var sett = ["0", "0"];
+        document.getElementById("s0").onchange = function() {
+            if (document.getElementById("s0").checked) sett[0] = "1", document.getElementById("opt4").style.display = "inline-block";
+            else sett[0] = "0", document.getElementById("opt4").style.display = "none";
+            localStorage.setItem("lyc2028-home-settings", sett);
+        }
+        document.getElementById("s1").onchange = function() {
+            if (document.getElementById("s1").checked) sett[1] = "1", document.getElementById("opt5").style.display = "inline-block";
+            else sett[1] = "0", document.getElementById("opt5").style.display = "none";
+            localStorage.setItem("lyc2028-home-settings", sett);
+        }
+        if (localStorage.getItem("lyc2028-home-settings") != undefined && localStorage.getItem("lyc2028-home-settings") != "") sett = localStorage.getItem("lyc2028-home-settings").split(",");
+        if (sett[0] == "1") document.getElementById("s0").checked = true, document.getElementById("opt4").style.display = "inline-block";
+        if (sett[1] == "1") document.getElementById("s1").checked = true, document.getElementById("opt5").style.display = "inline-block";
         check_url();
         window.addEventListener('hashchange', check_url);
         function check_url() {
@@ -369,9 +506,36 @@
                 document.getElementById("opt1").className = "opt-active";
             }
         }
+        document.getElementById("inner-content").style.height = String(window.innerHeight - 220) + "px";
+        window.onresize = function() {
+            document.getElementById("inner-content").style.height = String(window.innerHeight - 220) + "px";
+        }
         function show_op(nowid) {
             var nowlist = ["", "", "tools", "links", "subit", "oi"];
             var newWindow = window.open(window.location.href.split("#")[0] + "#" + nowlist[nowid], "_self");
+        }
+        function s_change(nowid) {
+            for (var i = 1; i <= 2; i++) document.getElementById("s-opt" + i).className = "alert-opt", document.getElementById("s-op" + i).style.display = "none";
+            document.getElementById("s-opt" + nowid).className = "alert-active", document.getElementById("s-op" + nowid).style.display = "block";
+        }
+        function show_settings() {
+            document.getElementById("alert-container").style.display = "block";
+            s_change(1);
+        }
+        function close_settings() {
+            document.getElementById("alert-container").style.display = "none";
+        }
+        function clear_settings() {
+            if (confirm("确认恢复初始设置？")) {
+                localStorage.removeItem("lyc2028-home-settings");
+                location.reload();
+            }
+        }
+        function change() {
+            document.getElementById("alert-close").src = "https://s21.ax1x.com/2024/09/21/pAMGvZt.png";
+        }
+        function change_red() {
+            document.getElementById("alert-close").src = "https://s21.ax1x.com/2024/09/21/pAMGxdP.png";
         }
     </script>
 </body>
