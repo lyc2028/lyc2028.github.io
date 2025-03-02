@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>数字拼图 - 2025数学文化节活动</title>
+    <script src="sweetalert2@8.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(128, 128, 128, 50%);
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(128, 128, 128, 100%);
+        }
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+        body {
+            color: white;
+            background-color: rgb(0, 0, 64);
+            cursor: default;
+        }
+        h2 {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #top {
+            width: 100%;
+            font-size: 48px;
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        #main {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 20px;
+            margin-right: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: -webkit-fill-available;
+        }
+        #left {
+            display: inline-block;
+            flex: 2;
+            color: black;
+            background-color: rgba(255, 255, 255, 0.7);
+            height: -webkit-fill-available;
+            border-radius: 10px;
+            margin-right: 20px;
+            padding: 20px;
+            padding-top: 15px;
+        }
+        #l-content, #r-content {
+            overflow: auto;
+            margin-right: -20px;
+            padding-right: 20px;
+            margin-bottom: -20px;
+            padding-bottom: 20px;
+        }
+        #right {
+            display: inline-block;
+            flex: 1;
+            color: black;
+            height: -webkit-fill-available;
+        }
+        #info, #info2 {
+            background-color: rgba(255, 255, 255, 0.7);
+            height: auto;
+            width: -webkit-fill-available;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+        #info2 {
+            padding-bottom: 20px;
+        }
+        #enter1 {
+            font-size: 20px;
+            width: 100%;
+            border-style: none;
+            outline-style: none;
+            color: white;
+            background-color: hsl(51, 90%, 36%);
+            border-radius: 5px;
+            text-align: center;
+            padding: 5px 0 5px 0;
+            cursor: pointer;
+            transition: 0.5s background-color;
+            margin-top: 10px;
+        }
+        #enter1:hover {
+            background-color: hsl(51, 90%, 44%);
+            transition: 0.5s background-color;
+        }
+        #enter2 {
+            font-size: 20px;
+            width: 100%;
+            border-style: none;
+            outline-style: none;
+            color: white;
+            background-color: hsl(120, 57%, 36%);
+            border-radius: 5px;
+            text-align: center;
+            padding: 5px 0 5px 0;
+            cursor: pointer;
+            transition: 0.5s background-color;
+            margin-top: 10px;
+        }
+        #enter2:hover {
+            background-color: hsl(120, 57%, 44%);
+            transition: 0.5s background-color;
+        }
+        #footer {
+            width: 100%;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        h3, p {
+            margin-bottom: 5px;
+        }
+        li {
+            margin-left: 2em;
+        }
+        b {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="top">2025数学文化节活动——数字拼图</div>
+    <div id="main">
+        <div id="left">
+            <h2 id="l-title">活动规则</h2>
+            <div id="l-content">
+                <h3>活动流程</h3>
+                <p>1. 活动设置两个难度不同的版本，分别对应 <b>4×4</b> 和 <b>5×5</b> 两种不同大小的盘面，参与者<b>可选择任意一个版本参加</b>。点击屏幕右侧“<b>开始挑战</b>”下方“<b>4×4 开始</b>”或“<b>5×5 开始</b>”按钮即可开始挑战。</p>
+                <p>2. 作答开始后，根据参与者选择的版本，屏幕上会出现一个 4×4 或 5×5 的方阵，相邻四格间设有<b>旋转按钮</b>，可将与该按钮相邻四个方格所在的正方形<b>顺时针旋转 90°</b>（如下图所示）。</p>
+                <img src="https://cdn.luogu.com.cn/upload/image_hosting/su5ciwv9.png">
+                <p>3. 参与者若在规定时间内，按照上述规则将方阵复原为<b>每一行数字相同</b>且<b>每一列数字从上到下递增</b>的目标方阵（如下图所示），视为<b>挑战成功</b>。若在规定时间内未完成，视为挑战失败。4×4 盘面复原限时 <b>3 分钟</b>，5×5 盘面复原限时 <b>5 分钟</b>。</p>
+                <img src="https://cdn.luogu.com.cn/upload/image_hosting/fawkedm2.png">
+                <p>4. 参与者在作答过程中，可点击屏幕右上角“<b>重置盘面</b>”按钮，将盘面恢复至初始状态（如下图所示）。</p>
+                <img style="width: 100%;" src="https://cdn.luogu.com.cn/upload/image_hosting/s0gexmol.png">
+                <h3>数学知识关联</h3>
+                <p>1. 几何变换与坐标系</p>
+                <p>2. 空间想象与图形推理</p>
+                <p>3. 组合数学与逻辑推理</p>
+                <p>4. 向量与函数思想</p>
+                <p>5. 分步分析与逆向思维</p>
+                <h3>平板扫码随身体验</h3>
+                <img src="https://cdn.luogu.com.cn/upload/image_hosting/1fddfzpj.png">
+                <h3>鸣谢</h3>
+                <p>技术协助：衔接班1班 杨懿轩</p>
+                <p>内测人员：<ul><li>衔接班1班 [暂无]</li><li>衔接班5班 [暂无]</li></ul></p>
+                <p>引用库：Sweetalert2 提示框插件</p>
+                <p>代码托管平台：Github</p>
+                <p>云服务平台：Cloudflare</p>
+                <p>域名提供方：https://nic.us.kg/</p>
+            </div>
+        </div>
+        <div id="right">
+            <div id="info">
+                <h2 id="info-title">重要提示</h2>
+                <p><b>为了避免对平板造成损坏，在答题过程中请勿拿起平板，点按屏幕时不要用力过猛，谢谢配合。</b></p>
+            </div>
+            <div id="info2">
+                <h2 id="info-title2">开始挑战</h2>
+                <button id="enter1" onclick="enter_activity(1)">4×4 开始</button>
+                <button id="enter2" onclick="enter_activity(2)">5×5 开始</button>
+            </div>
+        </div>
+    </div>
+    <div id="footer">项目组成员：衔接班5班 李垣辰</div>
+    <script>
+        window.onresize = function() {adjust_size();};
+        adjust_size();
+        function adjust_size() {
+            document.getElementById("main").style.height = String(window.innerHeight - document.getElementById("top").clientHeight - document.getElementById("footer").clientHeight - 100) + "px";
+            document.getElementById("l-content").style.height = String(document.getElementById("left").clientHeight - document.getElementById("l-title").clientHeight - 65) + "px";
+            document.getElementById("rank").style.height = String(document.getElementById("right").clientHeight - document.getElementById("info").clientHeight - 55) + "px";
+            document.getElementById("r-content").style.height = String(document.getElementById("rank").clientHeight - document.getElementById("r-title").clientHeight - 45) + "px";
+        }
+        function enter_activity(pcid) {
+            localStorage.setItem("math2025name", "NULL");
+            localStorage.setItem("math2025id", 0);
+            localStorage.setItem("math2025res", 0);
+            localStorage.setItem("math2025sto", 0);
+            var newWindow = window.open("start" + String(pcid) + ".html", "_self");
+        }
+    </script>
+</body>
