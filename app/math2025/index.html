@@ -125,6 +125,24 @@
             background-color: hsl(120, 57%, 44%);
             transition: 0.5s background-color;
         }
+        #enter3 {
+            font-size: 20px;
+            width: 100%;
+            border-style: none;
+            outline-style: none;
+            color: white;
+            background-color: hsl(234, 76%, 48%);
+            border-radius: 5px;
+            text-align: center;
+            padding: 5px 0 5px 0;
+            cursor: pointer;
+            transition: 0.5s background-color;
+            margin-top: 10px;
+        }
+        #enter3:hover {
+            background-color: hsl(234, 76%, 56%);
+            transition: 0.5s background-color;
+        }
         #footer {
             width: 100%;
             margin-bottom: 40px;
@@ -148,26 +166,24 @@
             <h2 id="l-title">活动规则</h2>
             <div id="l-content">
                 <h3>活动流程</h3>
-                <p>1. 活动设置两个难度不同的版本，分别对应 <b>4×4</b> 和 <b>5×5</b> 两种不同大小的盘面，参与者<b>可选择任意一个版本参加</b>。点击屏幕右侧“<b>开始挑战</b>”下方“<b>4×4 开始</b>”或“<b>5×5 开始</b>”按钮即可开始挑战。</p>
-                <p>2. 作答开始后，根据参与者选择的版本，屏幕上会出现一个 4×4 或 5×5 的方阵，相邻四格间设有<b>旋转按钮</b>，可将与该按钮相邻四个方格所在的正方形<b>顺时针旋转 90°</b>（如下图所示）。</p>
-                <img src="https://cdn.luogu.com.cn/upload/image_hosting/su5ciwv9.png">
-                <p>3. 参与者若在规定时间内，按照上述规则将方阵复原为<b>每一行数字相同</b>且<b>每一列数字从上到下递增</b>的目标方阵（如下图所示），视为<b>挑战成功</b>。若在规定时间内未完成，视为挑战失败。4×4 盘面复原限时 <b>3 分钟</b>，5×5 盘面复原限时 <b>5 分钟</b>。</p>
-                <img src="https://cdn.luogu.com.cn/upload/image_hosting/fawkedm2.png">
+                <p>1. 活动设置三个难度不同的版本，分别对应 <b>4×4</b>、<b>5×5</b> 和 <b>6×6</b> 三种不同大小的盘面，参与者<b>可选择任意一个版本参加</b>。点击屏幕右侧“<b>开始挑战</b>”下方<b>对应版本的开始按钮</b>即可开始挑战。</p>
+                <p>2. 作答开始后，根据参与者选择的版本，屏幕上会出现一个 4×4、5×5 或 6×6 的方阵，相邻四格间设有<b>旋转按钮</b>，可将与该按钮相邻四个方格所在的正方形<b>顺时针旋转 90°</b>（如下图所示）。</p>
+                <img src="https://cdn.luogu.com.cn/upload/image_hosting/mp0j4wul.png">
+                <p>3. 参与者若在规定时间内，按照上述规则将方阵复原为<b>每一行数字相同</b>且<b>每一列数字从上到下递增</b>的目标方阵（如下图所示），视为<b>挑战成功</b>。若在规定时间内未完成，视为挑战失败。<b>所有版本</b>复原限时均为 <b>3 分钟</b>。</p>
+                <img src="https://cdn.luogu.com.cn/upload/image_hosting/bm74nw2m.png">
                 <p>4. 参与者在作答过程中，可点击屏幕右上角“<b>重置盘面</b>”按钮，将盘面恢复至初始状态（如下图所示）。</p>
-                <img style="width: 100%;" src="https://cdn.luogu.com.cn/upload/image_hosting/s0gexmol.png">
+                <img style="width: 100%;" src="https://cdn.luogu.com.cn/upload/image_hosting/yhq5mqy2.png">
                 <h3>活动奖励</h3>
-                <p>若挑战成功，可在奖品区内领取一份小奖品，<b>数量有限，先到先得</b>。</p>
+                <p><b>6×6 版本挑战成功</b>的同学可在奖品区内领取一份小奖品，<b>限量 150 份，先到先得</b>。</p>
                 <h3>数学知识关联</h3>
                 <p>1. 几何变换与坐标系</p>
                 <p>2. 空间想象与图形推理</p>
                 <p>3. 组合数学与逻辑推理</p>
                 <p>4. 向量与函数思想</p>
                 <p>5. 分步分析与逆向思维</p>
-                <h3>平板扫码随身体验</h3>
-                <img src="https://cdn.luogu.com.cn/upload/image_hosting/aodjljbz.png">
                 <h3>鸣谢</h3>
                 <p>技术协助：衔接班1班 杨懿轩</p>
-                <p>内测人员：<ul><li>衔接班1班 [暂无]</li><li>衔接班5班 [暂无]</li></ul></p>
+                <p>内测人员：<ul><li>暂无</li></ul></p>
                 <p>引用库：Sweetalert2 提示框插件</p>
                 <p>代码托管平台：Github</p>
                 <p>云服务平台：Cloudflare</p>
@@ -181,8 +197,9 @@
             </div>
             <div id="info2">
                 <h2 id="info-title2">开始挑战</h2>
-                <button id="enter1" onclick="enter_activity(1)">4×4 开始</button>
-                <button id="enter2" onclick="enter_activity(2)">5×5 开始</button>
+                <button id="enter1" onclick="enter_activity(1)">4×4 简单版</button>
+                <button id="enter2" onclick="enter_activity(2)">5×5 体验版</button>
+                <button id="enter3" onclick="enter_activity(3)">6×6 有奖挑战</button>
             </div>
         </div>
     </div>

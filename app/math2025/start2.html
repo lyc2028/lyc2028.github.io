@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -94,6 +93,13 @@
         .turn:hover {
             background-color: deepskyblue;
         }
+        #page-title {
+            position: absolute;
+            top: 15px;
+            left: 25px;
+            font-size: 24px;
+            font-weight: bold;
+        }
         #reset-butt {
             position: absolute;
             top: 20px;
@@ -117,8 +123,9 @@
     </style>
 </head>
 <body>
-    <div id="top">05 : 00</div>
+    <div id="top">03 : 00</div>
     <div id="main">
+        <div id="page-title">5×5 体验版</div>
         <button id="reset-butt" onclick="reset_arr()">重置盘面</button>
         <table id="tb" border="1">
             <tr>
@@ -176,7 +183,7 @@
         localStorage.removeItem("math2025res");
         localStorage.removeItem("math2025sto");
 
-        var timer = 300;
+        var timer = 180;
         var nowinter = setInterval(function() {
             timer--;
             var minute = String(Math.floor(timer / 60)), sec = String(timer % 60);
@@ -194,7 +201,9 @@
                     confirmButtonText: "返回主页",
                     showCancelButton: true,
                     cancelButtonText: "重新挑战",
-                    reverseButtons: true
+                    reverseButtons: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
                 }).then((isConfirm) => {
                     if (ite1 != "NULL") localStorage.setItem(ite4, ite3 + "," + ite1 + "," + ite2 + ",0,999");
                     if (isConfirm.value) {
@@ -260,8 +269,10 @@
                     html: "用时：" + (ed / 1000) + " s<br>步数：" + step,
                     confirmButtonText: "返回主页",
                     showCancelButton: true,
-                    cancelButtonText: "重新挑战",
-                    reverseButtons: true
+                    cancelButtonText: "挑战 6×6",
+                    reverseButtons: true,
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
                 }).then((isConfirm) => {
                     if (ite1 != "NULL") localStorage.setItem(ite4, ite3 + "," + ite1 + "," + ite2 + ",1," + String(ed / 1000));
                     if (isConfirm.value) {
@@ -272,7 +283,7 @@
                         localStorage.setItem("math2025id", ite2);
                         localStorage.setItem("math2025res", ite3);
                         localStorage.setItem("math2025sto", ite4);
-                        location.reload();
+                        var newWindow = window.open("start3.html", "_self");
                     }
                 });
             }
