@@ -1,8 +1,10 @@
+
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
+    <link rel="icon" href="https://cdn.luogu.com.cn/upload/image_hosting/1m9v47cz.png">
     <title>5x5挑战 - 数字拼图 - 2025数学文化节活动</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="sweetalert2@8.js"></script>
     <style>
         * {
             margin: 0;
@@ -57,8 +59,8 @@
             color: black;
             border-style: solid;
             border-width: 5px;
-            border-color: rgb(165, 112, 42);
-            background-color: rgb(233, 204, 166);
+            border-color: silver;
+            background-color: white;
             height: 100%;
             width: 100%;
             text-align: center;
@@ -72,7 +74,7 @@
             flex: 1;
             outline-style: solid;
             outline-width: 5px;
-            outline-color: rgb(165, 112, 42);
+            outline-color: silver;
             font-size: 48px;
             font-weight: bold;
             width: 20%;
@@ -189,16 +191,28 @@
                 Swal.fire({
                     type: "error",
                     title: "时间到，挑战失败",
-                    confirmButtonText: "返回主页"
-                }).then(() => {
+                    confirmButtonText: "返回主页",
+                    showCancelButton: true,
+                    cancelButtonText: "重新挑战",
+                    reverseButtons: true
+                }).then((isConfirm) => {
                     if (ite1 != "NULL") localStorage.setItem(ite4, ite3 + "," + ite1 + "," + ite2 + ",0,999");
-                    if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
-                    else var newWindow = window.open("contest-index.html", "_self");
+                    if (isConfirm.value) {
+                        if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
+                        else var newWindow = window.open("contest-index.html", "_self");
+                    } else {
+                        localStorage.setItem("math2025name", ite1);
+                        localStorage.setItem("math2025id", ite2);
+                        localStorage.setItem("math2025res", ite3);
+                        localStorage.setItem("math2025sto", ite4);
+                        location.reload();
+                    }
                 });
             }
         }, 1000);
         var st = new Date();
 
+        var step = 0;
         window.onresize = function() {adjust_size();};
         adjust_size();
         function adjust_size() {
@@ -221,6 +235,12 @@
             for (var i = 0; i <= 4; i++) {
                 for (var j = 0; j <= 4; j++) {
                     document.getElementById("t" + i + "-" + j).innerHTML = arr[i * 5 + j];
+                    document.getElementById("t" + i + "-" + j).style.color = "white";
+                    if (arr[i * 5 + j] == 1) document.getElementById("t" + i + "-" + j).style.backgroundColor = "rgb(230, 57, 57)";
+                    if (arr[i * 5 + j] == 2) document.getElementById("t" + i + "-" + j).style.backgroundColor = "rgb(25, 153, 25)";
+                    if (arr[i * 5 + j] == 3) document.getElementById("t" + i + "-" + j).style.backgroundColor = "rgb(151, 130, 7)";
+                    if (arr[i * 5 + j] == 4) document.getElementById("t" + i + "-" + j).style.backgroundColor = "rgb(59, 59, 202)";
+                    if (arr[i * 5 + j] == 5) document.getElementById("t" + i + "-" + j).style.backgroundColor = "rgb(165, 74, 165)";
                 }
             }
             var isok = true;
@@ -237,12 +257,23 @@
                 Swal.fire({
                     type: "success",
                     title: "挑战成功",
-                    text: "用时：" + (ed / 1000) + " s",
-                    confirmButtonText: "返回主页"
-                }).then(() => {
+                    html: "用时：" + (ed / 1000) + " s<br>步数：" + step,
+                    confirmButtonText: "返回主页",
+                    showCancelButton: true,
+                    cancelButtonText: "重新挑战",
+                    reverseButtons: true
+                }).then((isConfirm) => {
                     if (ite1 != "NULL") localStorage.setItem(ite4, ite3 + "," + ite1 + "," + ite2 + ",1," + String(ed / 1000));
-                    if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
-                    else var newWindow = window.open("contest-index.html", "_self");
+                    if (isConfirm.value) {
+                        if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
+                        else var newWindow = window.open("contest-index.html", "_self");
+                    } else {
+                        localStorage.setItem("math2025name", ite1);
+                        localStorage.setItem("math2025id", ite2);
+                        localStorage.setItem("math2025res", ite3);
+                        localStorage.setItem("math2025sto", ite4);
+                        location.reload();
+                    }
                 });
             }
         }
@@ -252,6 +283,7 @@
             arr[i * 5 + (j - 1)] = arr[i * 5 + j];
             arr[i * 5 + j] = arr[(i - 1) * 5 + j];
             arr[(i - 1) * 5 + j] = t;
+            step++;
             update_arr();
         }
         function reset_arr() {
@@ -267,6 +299,7 @@
                 if (isConfirm.value) {
                     arr = [];
                     for (var i = 0; i < 25; i++) arr.push(_arr[i]);
+                    step = 0;
                     update_arr();
                 }
             });
