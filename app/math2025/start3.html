@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
@@ -82,6 +83,16 @@
             position: absolute;
             top: 0;
             left: 0;
+            height: 60px;
+            width: 60px;
+            border-radius: 100%;
+        }
+        .turn:hover {
+            background-color: rgba(255, 255, 255, 50%);
+        }
+        .turn1 {
+            margin-top: 15px;
+            margin-left: 15px;
             background-color: aqua;
             border-radius: 100%;
             height: 30px;
@@ -89,9 +100,6 @@
             padding: auto;
             border: none;
             outline: none;
-        }
-        .turn:hover {
-            background-color: deepskyblue;
         }
         #page-title {
             position: absolute;
@@ -234,9 +242,9 @@
             document.getElementById("button-area").innerHTML = "";
             for (var i = 1; i <= 5; i++) {
                 for (var j = 1; j <= 5; j++) {
-                    document.getElementById("button-area").innerHTML += '<button class="turn" id="turn' + i + '-' + j + '" onclick="rotate(' + i + ',' + j + ')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 2048 2048"><path fill="#ffffff" d="m1939 915l90 90l-301 301l-301-301l90-90l147 146v-37q0-106-27-204t-78-183t-120-156t-155-120t-184-77t-204-28t-204 27t-183 78t-156 120t-120 155t-77 184t-28 204t27 204t78 183t120 156t155 120t184 77t204 28v128q-124 0-238-32t-214-90t-181-140t-140-181t-91-214t-32-239t32-238t90-214t140-181t181-140t214-91t239-32q135 0 261 39t234 110t193 172t138 226q40 94 55 189t15 197zM896 768q53 0 99 20t82 55t55 81t20 100q0 53-20 99t-55 82t-81 55t-100 20q-53 0-99-20t-82-55t-55-81t-20-100q0-53 20-99t55-82t81-55t100-20m0 384q27 0 50-10t40-27t28-41t10-50q0-27-10-50t-27-40t-41-28t-50-10q-27 0-50 10t-40 27t-28 41t-10 50q0 27 10 50t27 40t41 28t50 10"/></svg></button>';
-                    document.getElementById("turn" + i + "-" + j).style.top = document.getElementById("tb").offsetTop + document.getElementById("t" + i + "-" + j).offsetTop - 10 + "px";
-                    document.getElementById("turn" + i + "-" + j).style.left = document.getElementById("tb").offsetLeft + document.getElementById("t" + i + "-" + j).offsetLeft - 10 + "px";
+                    document.getElementById("button-area").innerHTML += '<div class="turn" id="turn' + i + '-' + j + '" onclick="rotate(' + i + ',' + j + ')"><button class="turn1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 2048 2048"><path fill="#ffffff" d="m1939 915l90 90l-301 301l-301-301l90-90l147 146v-37q0-106-27-204t-78-183t-120-156t-155-120t-184-77t-204-28t-204 27t-183 78t-156 120t-120 155t-77 184t-28 204t27 204t78 183t120 156t155 120t184 77t204 28v128q-124 0-238-32t-214-90t-181-140t-140-181t-91-214t-32-239t32-238t90-214t140-181t181-140t214-91t239-32q135 0 261 39t234 110t193 172t138 226q40 94 55 189t15 197zM896 768q53 0 99 20t82 55t55 81t20 100q0 53-20 99t-55 82t-81 55t-100 20q-53 0-99-20t-82-55t-55-81t-20-100q0-53 20-99t55-82t81-55t100-20m0 384q27 0 50-10t40-27t28-41t10-50q0-27-10-50t-27-40t-41-28t-50-10q-27 0-50 10t-40 27t-28 41t-10 50q0 27 10 50t27 40t41 28t50 10"/></svg></button></div>';
+                    document.getElementById("turn" + i + "-" + j).style.top = document.getElementById("tb").offsetTop + document.getElementById("t" + i + "-" + j).offsetTop - 25 + "px";
+                    document.getElementById("turn" + i + "-" + j).style.left = document.getElementById("tb").offsetLeft + document.getElementById("t" + i + "-" + j).offsetLeft - 25 + "px";
                 }
             }
         }
