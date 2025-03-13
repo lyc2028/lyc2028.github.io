@@ -199,23 +199,12 @@
                     type: "error",
                     title: "时间到，挑战失败",
                     confirmButtonText: "返回主页",
-                    showCancelButton: true,
-                    cancelButtonText: "重新挑战",
-                    reverseButtons: true,
                     allowOutsideClick: false,
                     allowEscapeKey: false
                 }).then((isConfirm) => {
                     if (ite1 != "NULL") localStorage.setItem(ite4, ite3 + "," + ite1 + "," + ite2 + ",0,999");
-                    if (isConfirm.value) {
-                        if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
-                        else var newWindow = window.open("contest-index.html", "_self");
-                    } else {
-                        localStorage.setItem("math2025name", ite1);
-                        localStorage.setItem("math2025id", ite2);
-                        localStorage.setItem("math2025res", ite3);
-                        localStorage.setItem("math2025sto", ite4);
-                        location.reload();
-                    }
+                    if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
+                    else var newWindow = window.open("contest-index.html", "_self");
                 });
             }
         }, 1000);
@@ -265,26 +254,15 @@
                 ed = ed - st;
                 Swal.fire({
                     type: "success",
-                    title: "挑战成功",
-                    html: "用时：" + (ed / 1000) + " s<br>步数：" + step,
+                    title: "挑战成功，可在折页上盖章",
+                    html: "用时：" + (ed / 1000) + "s",
                     confirmButtonText: "返回主页",
-                    showCancelButton: true,
-                    cancelButtonText: "挑战 6×6",
-                    reverseButtons: true,
                     allowOutsideClick: false,
                     allowEscapeKey: false
-                }).then((isConfirm) => {
+                }).then(() => {
                     if (ite1 != "NULL") localStorage.setItem(ite4, ite3 + "," + ite1 + "," + ite2 + ",1," + String(ed / 1000));
-                    if (isConfirm.value) {
-                        if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
-                        else var newWindow = window.open("contest-index.html", "_self");
-                    } else {
-                        localStorage.setItem("math2025name", ite1);
-                        localStorage.setItem("math2025id", ite2);
-                        localStorage.setItem("math2025res", ite3);
-                        localStorage.setItem("math2025sto", ite4);
-                        var newWindow = window.open("start3.html", "_self");
-                    }
+                    if (ite1 == "NULL") var newWindow = window.open("index.html", "_self");
+                    else var newWindow = window.open("contest-index.html", "_self");
                 });
             }
         }
