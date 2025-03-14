@@ -131,7 +131,7 @@
     </style>
 </head>
 <body>
-    <div id="top">03 : 00</div>
+    <div id="top">01 : 30</div>
     <div id="main">
         <div id="page-title">4×4 简单版</div>
         <button id="reset-butt" onclick="reset_arr()">重置盘面</button>
@@ -180,7 +180,7 @@
         localStorage.removeItem("math2025res");
         localStorage.removeItem("math2025sto");
 
-        var timer = 180;
+        var timer = 90;
         var nowinter = setInterval(function() {
             timer--;
             var minute = String(Math.floor(timer / 60)), sec = String(timer % 60);
