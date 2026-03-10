@@ -12,7 +12,7 @@
             padding: 0;
         }
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 0;
             height: 12px;
         }
         ::-webkit-scrollbar-track {
@@ -42,6 +42,7 @@
             width: 100%;
             font-size: 48px;
             margin-top: 20px;
+            margin-bottom: 20px;
             font-weight: bold;
             text-align: center;
         }
@@ -50,27 +51,22 @@
             justify-content: space-between;
             margin-left: 20px;
             margin-right: 20px;
-            margin-top: 20px;
             margin-bottom: 20px;
             width: -webkit-fill-available;
+            flex-wrap: nowrap;
+            gap: 20px;
+        }
+        @media (max-width: 1200px) {
+            #main {
+                flex-wrap: wrap;
+                flex-direction: column-reverse;
+            }
         }
         #left {
             display: inline-block;
             flex: 2;
             color: black;
-            background-color: rgba(255, 255, 255, 0.7);
             height: -webkit-fill-available;
-            border-radius: 10px;
-            margin-right: 20px;
-            padding: 20px;
-            padding-top: 15px;
-        }
-        #l-content, #r-content {
-            overflow: auto;
-            margin-right: -20px;
-            padding-right: 20px;
-            margin-bottom: -20px;
-            padding-bottom: 20px;
         }
         #right {
             display: inline-block;
@@ -78,7 +74,7 @@
             color: black;
             height: -webkit-fill-available;
         }
-        #info, #info2 {
+        .info {
             background-color: rgba(255, 255, 255, 0.7);
             height: auto;
             width: -webkit-fill-available;
@@ -88,10 +84,11 @@
             padding-top: 15px;
             padding-bottom: 15px;
         }
-        #info2 {
-            padding-bottom: 20px;
+        .info-last {
+            margin-bottom: 0;
         }
         #enter1 {
+            flex: 1;
             font-size: 20px;
             width: 100%;
             border-style: none;
@@ -103,13 +100,13 @@
             padding: 5px 0 5px 0;
             cursor: pointer;
             transition: 0.5s background-color;
-            margin-top: 10px;
         }
         #enter1:hover {
             background-color: hsl(51, 90%, 44%);
             transition: 0.5s background-color;
         }
         #enter2 {
+            flex: 1;
             font-size: 20px;
             width: 100%;
             border-style: none;
@@ -121,13 +118,15 @@
             padding: 5px 0 5px 0;
             cursor: pointer;
             transition: 0.5s background-color;
-            margin-top: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
         }
         #enter2:hover {
             background-color: hsl(120, 57%, 44%);
             transition: 0.5s background-color;
         }
         #enter3 {
+            flex: 1;
             font-size: 20px;
             width: 100%;
             border-style: none;
@@ -139,16 +138,10 @@
             padding: 5px 0 5px 0;
             cursor: pointer;
             transition: 0.5s background-color;
-            margin-top: 10px;
         }
         #enter3:hover {
             background-color: hsl(234, 76%, 56%);
             transition: 0.5s background-color;
-        }
-        #footer {
-            width: 100%;
-            margin-bottom: 40px;
-            text-align: center;
         }
         h3, p {
             margin-bottom: 5px;
@@ -162,14 +155,11 @@
     </style>
 </head>
 <body>
-    <div id="top">2026数学文化节活动——数字拼图</div>
+    <div id="top">数字拼图</div>
     <div id="main">
         <div id="left">
-            <h2 id="l-title">活动规则</h2>
-            <div id="l-content">
-                <p><b>为了保证顺畅体验，请各位参与者完整阅读活动规则。</b></p>
-                <h3>活动时间</h3>
-                <p>2026 年 3 月 12 日 12:30-15:00</p>
+            <div class="info info-last">
+                <h2>活动规则</h2>
                 <h3>活动流程</h3>
                 <p>本方案<b>由 2025 年第二届数学文化节同名项目进行改进</b>。该方案将《最强大脑》项目“<b>旋转拼图</b>”与<b>数独</b>进行融合，对思维能力有更高的要求。</p>
                 <p>1. 本次活动<b>设置体验版、正式版、挑战版三个版本</b>，<b>不同版本对应不同的难度</b>，参与者可选择任意一个版本参加。点击对应版本的“<b>开始挑战</b>”按钮即可参与活动。版本说明如下：</p>
@@ -195,35 +185,35 @@
                 <p>4. 向量与函数思想</p>
                 <p>5. 分步分析与逆向思维</p>
                 <h3>鸣谢</h3>
+                <p>活动页面制作：高一弘毅1班 李垣辰 杨懿轩</p>
                 <p>引用库：Sweetalert2 提示框插件</p>
                 <p>代码托管平台：Github</p>
             </div>
         </div>
         <div id="right">
-            <div id="info">
-                <!--<h2 id="info-title">摊位编号：XX</h2>-->
-                <h2>平板使用提示</h2>
-                <p>本摊位一共设置 4 台平板，全部由学校提供。<b>为了避免对平板造成损坏，在答题过程中请勿拿起平板，点按屏幕时不要用力过猛，谢谢配合。</b></p>
-            </div>
-            <div id="info2">
-                <h2 id="info-title2">开始挑战</h2>
+            <div class="info">
+                <h2>开始挑战</h2>
+                <p><b style="background-color: yellow;">为了保证顺畅体验，请各位参与者完整阅读活动规则。</b></p>
                 <p><b>建议先挑战 4×4 体验版</b>，有能力的同学可以挑战 4×4 标准版和 6×6 挑战版。</p>
-                <button id="enter1" onclick="enter_activity(1)">4×4 体验版</button>
-                <button id="enter2" onclick="enter_activity(2)">4×4 标准版</button>
-                <button id="enter3" onclick="enter_activity(3)">6×6 挑战版</button>
+                <div style="display: flex; margin-top: 15px; margin-bottom: 5px;">
+                    <button id="enter1" onclick="enter_activity(1)">4×4 体验版</button>
+                    <button id="enter2" onclick="enter_activity(2)">4×4 标准版</button>
+                    <button id="enter3" onclick="enter_activity(3)">6×6 挑战版</button>
+                </div>
+            </div>
+            <div class="info">
+                <h2>活动信息</h2>
+                <p>摊位编号：5</p>
+                <p>活动时间：2026 年 3 月 12 日 12:30-15:00</p>
+            </div>
+            <div class="info info-last">
+                <h2>平板使用提示</h2>
+                <p>本摊位一共设置 4 台平板，全部由学校提供。</p>
+                <p><b>为了避免对平板造成损坏，在挑战过程中请勿拿起平板，点按屏幕时不要用力过猛，谢谢配合。</b></p>
             </div>
         </div>
     </div>
-    <div id="footer">活动页面制作：高一弘毅1班 李垣辰 杨懿轩</div>
     <script>
-        window.onresize = function() {adjust_size();};
-        adjust_size();
-        function adjust_size() {
-            document.getElementById("main").style.height = String(window.innerHeight - document.getElementById("top").clientHeight - document.getElementById("footer").clientHeight - 100) + "px";
-            document.getElementById("l-content").style.height = String(document.getElementById("left").clientHeight - document.getElementById("l-title").clientHeight - 65) + "px";
-            document.getElementById("rank").style.height = String(document.getElementById("right").clientHeight - document.getElementById("info").clientHeight - 55) + "px";
-            document.getElementById("r-content").style.height = String(document.getElementById("rank").clientHeight - document.getElementById("r-title").clientHeight - 45) + "px";
-        }
         function enter_activity(pcid) {
             var newWindow = window.open("start" + String(pcid) + ".html", "_self");
         }
