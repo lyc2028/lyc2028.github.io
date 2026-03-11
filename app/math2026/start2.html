@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
-    <link rel="icon" href="https://cdn.luogu.com.cn/upload/image_hosting/1m9v47cz.png">
-    <title>4×4标准版 - 数字拼图 - 2026数学文化节活动</title>
+    <link rel="icon" href="icon.ico">
+    <title>进阶版 - 数字拼图 - 2026数学文化节活动</title>
     <script src="/app/math2025/sweetalert2@8.js"></script>
     <style>
         * {
@@ -82,28 +82,35 @@
             position: absolute;
             top: 0;
             left: 0;
+            height: 100px;
+            width: 100px;
+            border-radius: 100%;
+        }
+        .turn1 {
+            margin-top: 35px;
+            margin-left: 35px;
             background-color: aqua;
             border-radius: 100%;
-            height: 50px;
-            width: 50px;
+            height: 30px;
+            width: 30px;
             padding: auto;
             border: none;
             outline: none;
         }
-        .turn:hover {
-            background-color: deepskyblue;
-        }
         #page-title {
             position: absolute;
-            top: 15px;
-            left: 70px;
+            justify-content: flex-end;
+            top: 16px;
+            left: 20px;
+            display: flex;
+            align-items: center;
             font-size: 24px;
             font-weight: bold;
             vertical-align: middle;
         }
         #reset-butt {
             position: absolute;
-            top: 20px;
+            top: 14px;
             right: 20px;
             font-size: 20px;
             width: 100px;
@@ -124,11 +131,12 @@
     </style>
 </head>
 <body>
-    <div id="top">03 : 00</div>
+    <div id="top">04 : 00</div>
     <div id="main">
         <div id="page-title">
-            <svg style="position: fixed; top: 19px; left: 25px; cursor: pointer;" onclick="home()" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48"><g fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-width="4"><path d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path stroke-linecap="round" d="m27 33l-9-9l9-9"/></g></svg>
-        4×4 标准版</div>
+            <svg style="cursor: pointer;" onclick="_home()" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 48 48"><g fill="none" stroke="#ffffff" stroke-linejoin="round" stroke-width="4"><path d="M24 44c11.046 0 20-8.954 20-20S35.046 4 24 4S4 12.954 4 24s8.954 20 20 20Z"/><path stroke-linecap="round" d="m27 33l-9-9l9-9"/></g></svg>
+            <span style="margin-left: 20px;">进阶版</span>
+        </div>
         <button id="reset-butt" onclick="reset_arr()">重置盘面</button>
         <table id="tb" border="1">
             <tr>
@@ -160,11 +168,29 @@
     </div>
     <div id="footer"></div>
     <script>
+        if (no_value(localStorage.getItem("math2026-anti-reload"))) localStorage.setItem("math2026-anti-reload", "false");
+        if (localStorage.getItem("math2026-anti-reload") == "false") home();
+        else localStorage.setItem("math2026-anti-reload", "false");
+        function no_value(val) {
+            return val == undefined || val == null || val == "";
+        }
         function home() {
-            window.open("index.html", "_self");
+            var newWindow = window.open("index.html", "_self");
+        }
+        function _home() {
+            Swal.fire({
+                type: "warning",
+                title: "确认放弃挑战？",
+                html: "若放弃挑战，需移步至队尾重新排队",
+                confirmButtonText: "确定",
+                showCancelButton: true,
+                cancelButtonText: "取消"
+            }).then((isConfirm) => {
+                if (isConfirm.value) home();
+            });
         }
 
-        var timer = 180;
+        var timer = 240;
         var nowinter = setInterval(function() {
             timer--;
             var minute = String(Math.floor(timer / 60)), sec = String(timer % 60);
@@ -179,6 +205,7 @@
                 Swal.fire({
                     type: "error",
                     title: "时间到，挑战失败",
+                    html: "请移步至队尾重新排队",
                     confirmButtonText: "返回主页",
                     allowOutsideClick: false,
                     allowEscapeKey: false
@@ -197,9 +224,9 @@
             document.getElementById("button-area").innerHTML = "";
             for (var i = 1; i <= 3; i++) {
                 for (var j = 1; j <= 3; j++) {
-                    document.getElementById("button-area").innerHTML += '<button class="turn" id="turn' + i + '-' + j + '" onclick="rotate(' + i + ',' + j + ')"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 2048 2048"><path fill="#ffffff" d="m1939 915l90 90l-301 301l-301-301l90-90l147 146v-37q0-106-27-204t-78-183t-120-156t-155-120t-184-77t-204-28t-204 27t-183 78t-156 120t-120 155t-77 184t-28 204t27 204t78 183t120 156t155 120t184 77t204 28v128q-124 0-238-32t-214-90t-181-140t-140-181t-91-214t-32-239t32-238t90-214t140-181t181-140t214-91t239-32q135 0 261 39t234 110t193 172t138 226q40 94 55 189t15 197zM896 768q53 0 99 20t82 55t55 81t20 100q0 53-20 99t-55 82t-81 55t-100 20q-53 0-99-20t-82-55t-55-81t-20-100q0-53 20-99t55-82t81-55t100-20m0 384q27 0 50-10t40-27t28-41t10-50q0-27-10-50t-27-40t-41-28t-50-10q-27 0-50 10t-40 27t-28 41t-10 50q0 27 10 50t27 40t41 28t50 10"/></svg></button>';
-                    document.getElementById("turn" + i + "-" + j).style.top = document.getElementById("tb").offsetTop + document.getElementById("t" + i + "-" + j).offsetTop - 20 + "px";
-                    document.getElementById("turn" + i + "-" + j).style.left = document.getElementById("tb").offsetLeft + document.getElementById("t" + i + "-" + j).offsetLeft - 20 + "px";
+                    document.getElementById("button-area").innerHTML += '<div class="turn" id="turn' + i + '-' + j + '" onclick="rotate(' + i + ',' + j + ')"><button class="turn1"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 2048 2048"><path fill="#ffffff" d="m1939 915l90 90l-301 301l-301-301l90-90l147 146v-37q0-106-27-204t-78-183t-120-156t-155-120t-184-77t-204-28t-204 27t-183 78t-156 120t-120 155t-77 184t-28 204t27 204t78 183t120 156t155 120t184 77t204 28v128q-124 0-238-32t-214-90t-181-140t-140-181t-91-214t-32-239t32-238t90-214t140-181t181-140t214-91t239-32q135 0 261 39t234 110t193 172t138 226q40 94 55 189t15 197zM896 768q53 0 99 20t82 55t55 81t20 100q0 53-20 99t-55 82t-81 55t-100 20q-53 0-99-20t-82-55t-55-81t-20-100q0-53 20-99t55-82t81-55t100-20m0 384q27 0 50-10t40-27t28-41t10-50q0-27-10-50t-27-40t-41-28t-50-10q-27 0-50 10t-40 27t-28 41t-10 50q0 27 10 50t27 40t41 28t50 10"/></svg></button></div>';
+                    document.getElementById("turn" + i + "-" + j).style.top = document.getElementById("tb").offsetTop + document.getElementById("t" + i + "-" + j).offsetTop - 46 + "px";
+                    document.getElementById("turn" + i + "-" + j).style.left = document.getElementById("tb").offsetLeft + document.getElementById("t" + i + "-" + j).offsetLeft - 46 + "px";
                 }
             }
         }
