@@ -60,9 +60,8 @@
             border-width: 5px;
             border-color: silver;
             background-color: white;
-            height: 100%;
-            width: 100%;
             text-align: center;
+            margin: auto;
         }
         tr {
             border: none;
@@ -241,10 +240,13 @@
         var st = new Date();
 
         var step = 0;
+        window.onload = function() {adjust_size();};
         window.onresize = function() {adjust_size();};
         adjust_size();
         function adjust_size() {
             document.getElementById("main").style.height = document.getElementById("main").style.width = String(window.innerHeight - document.getElementById("top").clientHeight - document.getElementById("footer").clientHeight - 100) + "px";
+            document.getElementById("tb").style.height = document.getElementById("tb").style.width = String(Math.min(document.getElementById("main").clientHeight, document.getElementById("main").clientWidth) - 40) + "px";
+            document.getElementById("main").style.marginTop = String(Math.max(document.getElementById("main").clientHeight - document.getElementById("tb").clientHeight, 0) / 2 + 20) + "px";
             document.getElementById("button-area").innerHTML = "";
             for (var i = 1; i <= 5; i++) {
                 for (var j = 1; j <= 5; j++) {
