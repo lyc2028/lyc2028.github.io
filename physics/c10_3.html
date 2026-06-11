@@ -1,0 +1,481 @@
+<!--部分源代码由DeepSeek生成-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实验：探究弹簧振子周期的影响因素</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #000;
+            margin-top: 0;
+        }
+        .simulation-area {
+            height: 220px;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px auto;
+            position: relative;
+            overflow: visible;
+            width: 520px;
+        }
+        .wall {
+            position: absolute;
+            left: 60px;
+            top: 50px;
+            width: 20px;
+            height: 120px;
+            background: #607d8b;
+            border-right: 3px solid #455a64;
+        }
+        .ground {
+            position: absolute;
+            left: 80px;
+            width: 360px;
+            top: 110px;
+            height: 4px;
+            background: #90a4ae;
+        }
+        .balance-line {
+            position: absolute;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            border-left: 2px dashed #27ae60;
+            pointer-events: none;
+            display: block;
+        }
+        .max-line {
+            position: absolute;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            border-left: 2px dashed #e74c3c;
+            pointer-events: none;
+            display: none;
+        }
+        .spring-wrap {
+            position: absolute;
+            left: 80px;
+            top: 110px;
+            height: 24px;
+        }
+        .spring-svg {
+            height: 24px;
+            display: block;
+            overflow: visible;
+        }
+        .mass {
+            width: 30px;
+            height: 30px;
+            background: #e74c3c;
+            border-radius: 50%;
+            position: absolute;
+            top: 100px;
+            border: 2px solid #c0392b;
+            cursor: grab;
+        }
+        .mass:active {
+            cursor: grabbing;
+        }
+
+        /* 整体参数区域向下偏移 */
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 35px;
+        }
+        .left-panel {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .right-panel {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        label {
+            width: 140px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        input[type="range"] {
+            flex: 1;
+            accent-color: #3498db;
+        }
+        .value-display {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+            justify-content: center;
+            align-items: center;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #3498db;
+            color: white;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .info-box span {
+            color: #e74c3c;
+        }
+        .timer-box {
+            background: #fff5f5;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .timer-box span {
+            color: #e74c3c;
+        }
+
+        .tips {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>实验：探究弹簧振子周期的影响因素</h2>
+        
+        <div class="simulation-area">
+            <div class="wall"></div>
+            <div class="ground"></div>
+            <div class="balance-line" id="balanceLine"></div>
+            <div class="max-line" id="leftMaxLine"></div>
+            <div class="max-line" id="rightMaxLine"></div>
+            <div class="spring-wrap" id="springWrap">
+                <svg class="spring-svg" id="springSvg">
+                    <path id="springPath" stroke="#3498db" stroke-width="2" fill="none"></path>
+                </svg>
+            </div>
+            <div class="mass" id="mass"></div>
+        </div>
+
+        <div class="control-row">
+            <div class="left-panel">
+                <div class="control-group">
+                    <label>小球质量 m：</label>
+                    <input type="range" id="massSlider" min="0.5" max="2" step="0.1" value="0.5">
+                    <span class="value-display" id="massValue">0.5 kg</span>
+                </div>
+                <div class="control-group">
+                    <label>小球直径 D：</label>
+                    <input type="range" id="sizeSlider" min="1" max="3" step="0.1" value="2">
+                    <span class="value-display" id="sizeValue">2 cm</span>
+                </div>
+                <div class="control-group">
+                    <label>弹簧劲度系数 k：</label>
+                    <input type="range" id="kSlider" min="10" max="40" step="1" value="10">
+                    <span class="value-display" id="kValue">10 N/m</span>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="info-box">
+                    当前振幅：<span id="ampVal">0</span> cm
+                </div>
+                <div class="timer-box">
+                    计时结果：<span id="timerShow">0.00 s</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="stopBtn">停止 / 回到平衡位置</button>
+            <button id="timeBtn">开始计时</button>
+        </div>
+
+        <div class="tips">
+            拖动小球改变振幅，松开即从当前位置释放振动；点击按钮手动计时
+        </div>
+    </div>
+
+    <script>
+        const springWrap = document.getElementById('springWrap');
+        const springSvg = document.getElementById('springSvg');
+        const springPath = document.getElementById('springPath');
+        const mass = document.getElementById('mass');
+        const ampDisplay = document.getElementById('ampVal');
+        const timerShow = document.getElementById('timerShow');
+        const timeBtn = document.getElementById('timeBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const balanceLine = document.getElementById('balanceLine');
+        const leftMaxLine = document.getElementById('leftMaxLine');
+        const rightMaxLine = document.getElementById('rightMaxLine');
+
+        const massSlider = document.getElementById('massSlider');
+        const sizeSlider = document.getElementById('sizeSlider');
+        const kSlider = document.getElementById('kSlider');
+        const massValue = document.getElementById('massValue');
+        const sizeValue = document.getElementById('sizeValue');
+        const kValue = document.getElementById('kValue');
+
+        const BASE_LEN = 180;
+        const COILS = 12;
+        const AMPLITUDE_SPRING = 6;
+        let m = 0.5;
+        let k = 10;
+        let size = 2;
+        let isDragging = false;
+        let isRunning = false;
+        let animationId = null;
+        let currentAmp = 0;
+        let startTime = 0;
+
+        let isTiming = false;
+        let timerStart = 0;
+        let timerId = null;
+
+        balanceLine.style.left = `${80 + BASE_LEN}px`;
+
+        function drawSpring(totalLength) {
+            const points = [];
+            const stepX = totalLength / COILS;
+            points.push(`0,0`);
+            for (let i = 1; i <= COILS; i++) {
+                const x = i * stepX;
+                const y = (i % 2 === 1) ? AMPLITUDE_SPRING : -AMPLITUDE_SPRING;
+                points.push(`${x},${y}`);
+            }
+            springPath.setAttribute('d', `M ${points.join(' L ')}`);
+            springSvg.setAttribute('width', totalLength);
+        }
+
+        function updateValues() {
+            m = parseFloat(massSlider.value);
+            size = parseFloat(sizeSlider.value);
+            k = parseInt(kSlider.value);
+
+            massValue.textContent = m.toFixed(1) + " kg";
+            sizeValue.textContent = size.toFixed(1) + " cm";
+            kValue.textContent = k + " N/m";
+
+            const pixelSize = 10 + size * 10;
+            mass.style.width = pixelSize + "px";
+            mass.style.height = pixelSize + "px";
+            mass.style.top = (110 - pixelSize / 2) + "px";
+        }
+
+        function animate(timestamp) {
+            if (!isRunning || isDragging) return;
+            const elapsed = (timestamp - startTime) / 1000;
+            const omega = Math.sqrt(k / m);
+            const offset = currentAmp * Math.cos(omega * elapsed);
+            const len = BASE_LEN + offset;
+
+            drawSpring(len);
+            const w = parseFloat(mass.style.width);
+            mass.style.left = `${80 + len - w/2}px`;
+            animationId = requestAnimationFrame(animate);
+        }
+
+        function updateMaxLines(amp) {
+            if (amp === 0) {
+                leftMaxLine.style.display = 'none';
+                rightMaxLine.style.display = 'none';
+                return;
+            }
+            const centerX = 80 + BASE_LEN;
+            leftMaxLine.style.left = `${centerX - Math.abs(amp)}px`;
+            rightMaxLine.style.left = `${centerX + Math.abs(amp)}px`;
+            leftMaxLine.style.display = 'block';
+            rightMaxLine.style.display = 'block';
+        }
+
+        function updateValues() {
+    m = parseFloat(massSlider.value);
+    size = parseFloat(sizeSlider.value);
+    k = parseInt(kSlider.value);
+
+    massValue.textContent = m.toFixed(1) + " kg";
+    sizeValue.textContent = size.toFixed(1) + " cm";
+    kValue.textContent = k + " N/m";
+
+    const pixelSize = 10 + size * 10;
+    mass.style.width = pixelSize + "px";
+    mass.style.height = pixelSize + "px";
+    mass.style.top = (110 - pixelSize / 2) + "px";
+}
+
+function animate(timestamp) {
+    if (!isRunning || isDragging) return;
+    const elapsed = (timestamp - startTime) / 1000;
+    const omega = Math.sqrt(k / m);
+    const offset = currentAmp * Math.cos(omega * elapsed);
+    const len = BASE_LEN + offset;
+
+    drawSpring(len);
+    const w = parseFloat(mass.style.width);
+    mass.style.left = `${80 + len - w/2}px`;
+    animationId = requestAnimationFrame(animate);
+}
+
+function updateMaxLines(amp) {
+    if (amp === 0) {
+        leftMaxLine.style.display = 'none';
+        rightMaxLine.style.display = 'none';
+        return;
+    }
+    const centerX = 80 + BASE_LEN;
+    leftMaxLine.style.left = `${centerX - Math.abs(amp)}px`;
+    rightMaxLine.style.left = `${centerX + Math.abs(amp)}px`;
+    leftMaxLine.style.display = 'block';
+    rightMaxLine.style.display = 'block';
+}
+
+// 统一处理指针/触摸/鼠标事件
+function getClientX(e) {
+    if (e.touches) return e.touches[0].clientX;
+    return e.clientX;
+}
+
+function onDragStart(e) {
+    e.preventDefault();
+    isDragging = true;
+    isRunning = false;
+    cancelAnimationFrame(animationId);
+}
+
+function onDragMove(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const rect = document.querySelector('.simulation-area').getBoundingClientRect();
+    let x = getClientX(e) - rect.left - 80;
+    x = Math.max(120, Math.min(x, 260));
+    currentAmp = x - BASE_LEN;
+
+    drawSpring(x);
+    const w = parseFloat(mass.style.width);
+    mass.style.left = `${80 + x - w/2}px`;
+    
+    const ampCM = Math.round(Math.abs(currentAmp) / 10);
+    ampDisplay.textContent = ampCM;
+    updateMaxLines(currentAmp);
+}
+
+function onDragEnd(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    isDragging = false;
+    startTime = performance.now();
+    isRunning = true;
+    timeBtn.textContent = "开始计时";
+    isTiming = false;
+    clearInterval(timerId);
+    animationId = requestAnimationFrame(animate);
+}
+
+// 同时监听鼠标和触摸事件
+mass.addEventListener('mousedown', onDragStart);
+mass.addEventListener('touchstart', onDragStart, {passive: false});
+
+document.addEventListener('mousemove', onDragMove);
+document.addEventListener('touchmove', onDragMove, {passive: false});
+
+document.addEventListener('mouseup', onDragEnd);
+document.addEventListener('touchend', onDragEnd);
+document.addEventListener('touchcancel', onDragEnd);
+
+function stopAndReset() {
+    cancelAnimationFrame(animationId);
+    clearInterval(timerId);
+    isRunning = false;
+    isDragging = false;
+    isTiming = false;
+    currentAmp = 0;
+    drawSpring(BASE_LEN);
+    
+    const w = parseFloat(mass.style.width);
+    mass.style.left = `${80 + BASE_LEN - w/2}px`;
+    
+    ampDisplay.textContent = "0";
+    timerShow.textContent = "0.00 s";
+    timeBtn.textContent = "开始计时";
+    updateMaxLines(0);
+}
+
+function startTimer() {
+    if (isTiming) {
+        clearInterval(timerId);
+        isTiming = false;
+        timeBtn.textContent = "开始计时";
+    } else {
+        timerStart = performance.now();
+        isTiming = true;
+        timeBtn.textContent = "停止计时";
+        timerId = setInterval(() => {
+            const now = performance.now();
+            const t = ((now - timerStart) / 1000).toFixed(2);
+            timerShow.textContent = `${t} s`;
+        }, 10);
+    }
+}
+
+stopBtn.addEventListener('click', stopAndReset);
+timeBtn.addEventListener('click', startTimer);
+massSlider.addEventListener('input', updateValues);
+sizeSlider.addEventListener('input', updateValues);
+kSlider.addEventListener('input', updateValues);
+
+updateValues();
+stopAndReset();
+    </script>
+</body>
+</html>
