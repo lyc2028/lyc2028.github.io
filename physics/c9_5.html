@@ -1,0 +1,388 @@
+<!--本页源代码由DeepSeek AI生成-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双物体弹簧类碰撞动画演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .title {
+            color: #2d3436;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        canvas {
+            background: #ffffff;
+        }
+
+        /* 横向质量选择栏样式 */
+        .mass-select-wrap {
+            display: flex;
+            gap: 20px;
+        }
+        .mass-item {
+            padding: 9px 28px;
+            font-size: 16px;
+            border: 1px solid #999;
+            border-radius: 6px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            transition: all 0.2s;
+        }
+        .mass-item.active {
+            background-color: #4a69bd;
+            color: #ffffff;
+            border-color: #4a69bd;
+        }
+        .mass-item:hover:not(.active) {
+            background-color: #e0e0e0;
+        }
+
+        /* 功能按钮组 */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #fff;
+        }
+        #stepPlay { background: #00b894; }
+        #fullPlay { background: #6c5ce7; }
+        #reset { background: #0984e3; }
+
+        sub {
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">双物体弹簧类碰撞动画演示</div>
+
+    <div class="mass-select-wrap">
+        <div class="mass-item active" data-index="0">m<sub>A</sub> ＞ m<sub>B</sub></div>
+        <div class="mass-item" data-index="1">m<sub>A</sub> ＝ m<sub>B</sub></div>
+        <div class="mass-item" data-index="2">m<sub>A</sub> ＜ m<sub>B</sub></div>
+    </div>
+
+    <canvas id="scene" width="900" height="260"></canvas>
+    <canvas id="vtGraph" width="750" height="220"></canvas>
+
+    <div class="btn-group">
+        <button id="stepPlay">分阶段播放</button>
+        <button id="fullPlay">按周期播放</button>
+        <button id="reset">重置</button>
+    </div>
+
+<script>
+// 动画帧兼容
+if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = window.webkitRequestAnimationFrame || function(cb) { return setTimeout(cb, 1000/60); };
+}
+if (!window.cancelAnimationFrame) {
+    window.cancelAnimationFrame = window.webkitCancelAnimationFrame || function(id) { clearTimeout(id); };
+}
+
+// ==================== 基础全局配置 ====================
+const v0 = 1;
+const k = 1000;
+const l0 = 0.1;
+const scale = 2000;
+const blockW = 40, blockH = 40;
+const FIX_ZIG_NUM = 12;
+const colorA = "#0984e3";
+
+// 三组质量配置
+const massConfigs = [
+    { ma: 2,    mb: 1 },
+    { ma: 1.5,  mb: 1.5 },
+    { ma: 1,    mb: 2 }
+];
+
+let currentMA, currentMB;
+let vc, omega, T, segT;
+let markTimes = [];
+const markLabels = ["t₁", "t₂", "t₃", "t₄"];
+
+let curSeg = 0;
+let curTime = 0;
+let animId = null;
+
+// 阶段描述文本
+const stageDesc = [
+    "阶段1：原长→压缩至最短",
+    "阶段2：最短→首次恢复原长",
+    "阶段3：原长→拉伸到最长",
+    "阶段4：最长→再次恢复原长"
+];
+
+const sceneCanv = document.getElementById('scene');
+const vtCanv = document.getElementById('vtGraph');
+const sCtx = sceneCanv.getContext('2d');
+const vCtx = vtCanv.getContext('2d');
+const massItems = document.querySelectorAll('.mass-item');
+
+// 动态更新物理参数
+function updatePhysics() {
+    const totalM = currentMA + currentMB;
+    vc = (currentMA * v0) / totalM;
+    omega = Math.sqrt( k * totalM / (currentMA * currentMB) );
+    T = 2 * Math.PI / omega;
+    segT = T / 4;
+    markTimes = [segT, 2*segT, 3*segT, 4*segT];
+}
+
+// 通用运动方程
+function vA(t) {
+    const totalM = currentMA + currentMB;
+    return vc + (currentMB / totalM) * v0 * Math.cos(omega * t);
+}
+function vB(t) {
+    const totalM = currentMA + currentMB;
+    return vc - (currentMA / totalM) * v0 * Math.cos(omega * t);
+}
+function xA(t) {
+    const totalM = currentMA + currentMB;
+    const amp = (currentMB * v0) / (totalM * omega);
+    return vc * t + amp * Math.sin(omega * t);
+}
+function xB(t) {
+    const totalM = currentMA + currentMB;
+    const amp = (currentMA * v0) / (totalM * omega);
+    return l0 + vc * t - amp * Math.sin(omega * t);
+}
+
+// 绘制固定锯齿弹簧
+function drawZigSpring(xStart, xEnd, centerY) {
+    sCtx.strokeStyle = "#fdcb6e";
+    sCtx.lineWidth = 3;
+    sCtx.beginPath();
+    sCtx.moveTo(xStart, centerY);
+    const totalLen = xEnd - xStart;
+    const step = totalLen / FIX_ZIG_NUM;
+    let currX = xStart;
+    let flip = true;
+    const zigOffset = 8;
+    for (let i = 0; i < FIX_ZIG_NUM; i++) {
+        const offY = flip ? zigOffset : -zigOffset;
+        sCtx.lineTo(currX + step/2, centerY + offY);
+        currX += step;
+        sCtx.lineTo(currX, centerY);
+        flip = !flip;
+    }
+    sCtx.stroke();
+}
+
+// 绘制上方物块动画
+function drawScene(t) {
+    sCtx.clearRect(0, 0, sceneCanv.width, sceneCanv.height);
+    const baseY = 130;
+    sCtx.fillStyle = "#d63031";
+    sCtx.font = "18px Microsoft Yahei";
+    sCtx.textAlign = "center";
+    sCtx.fillText(stageDesc[curSeg], sceneCanv.width/2, 35);
+
+    sCtx.fillStyle = "#b2bec3";
+    sCtx.fillRect(0, baseY+25, sceneCanv.width, 8);
+
+    const ax = 100 + xA(t) * scale;
+    const bx = 100 + xB(t) * scale;
+    drawZigSpring(ax + blockW, bx, baseY);
+
+    // 物块A
+    sCtx.fillStyle = colorA;
+    sCtx.fillRect(ax, baseY - blockH/2, blockW, blockH);
+    sCtx.fillStyle = "#ffffff";
+    sCtx.font = "20px Arial";
+    sCtx.textAlign = "center";
+    sCtx.fillText("A", ax + blockW/2, baseY +7);
+
+    // 物块B
+    sCtx.fillStyle = "#e17055";
+    sCtx.fillRect(bx, baseY - blockH/2, blockW, blockH);
+    sCtx.fillStyle = "#ffffff";
+    sCtx.fillText("B", bx + blockW/2, baseY +7);
+}
+
+// 绘制v-t图像（含正负速度半轴）
+function drawVt(tNow) {
+    vCtx.clearRect(0, 0, vtCanv.width, vtCanv.height);
+    const ox = 50;
+    const oy = 110;
+    const axisLenX = 650;
+    const posVHeight = 90;
+    const negVHeight = 90;
+    const drawEffectiveWidth = 570;
+    const scT = drawEffectiveWidth / T;
+    const scV = 65;
+
+    // 绘制坐标轴 + 箭头
+    vCtx.strokeStyle = "#2d3436";
+    vCtx.lineWidth = 2;
+
+    // 横轴 t
+    vCtx.beginPath();
+    vCtx.moveTo(ox, oy);
+    vCtx.lineTo(ox + axisLenX, oy);
+    vCtx.lineTo(ox + axisLenX - 8, oy - 5);
+    vCtx.moveTo(ox + axisLenX, oy);
+    vCtx.lineTo(ox + axisLenX - 8, oy + 5);
+    vCtx.stroke();
+
+    // 纵轴 v
+    vCtx.beginPath();
+    vCtx.moveTo(ox, oy + negVHeight);
+    vCtx.lineTo(ox, oy - posVHeight);
+    vCtx.lineTo(ox - 5, oy - posVHeight + 8);
+    vCtx.moveTo(ox, oy - posVHeight);
+    vCtx.lineTo(ox + 5, oy - posVHeight + 8);
+    vCtx.stroke();
+
+    // 坐标轴文字标识
+    vCtx.fillStyle = "#2d3436";
+    vCtx.font = "16px Microsoft Yahei";
+    vCtx.textAlign = "center";
+    vCtx.fillText("t", ox + axisLenX + 15, oy + 5);
+    vCtx.fillText("v", ox - 15, oy - posVHeight - 8);
+
+    // 分段虚线 + 时间标注
+    vCtx.strokeStyle = "#999";
+    vCtx.setLineDash([4,4]);
+    for(let i = 0; i <= curSeg; i++){
+        const x = ox + markTimes[i] * scT;
+        vCtx.beginPath();
+        vCtx.moveTo(x, oy + negVHeight);
+        vCtx.lineTo(x, oy - posVHeight);
+        vCtx.stroke();
+        vCtx.fillText(markLabels[i], x, oy + negVHeight + 20);
+    }
+    vCtx.setLineDash([]);
+
+    // 绘制速度曲线
+    vCtx.lineWidth = 2.5;
+    const stepSample = 2;
+    // A 速度曲线
+    vCtx.strokeStyle = colorA;
+    vCtx.beginPath();
+    for(let i=0; i<=tNow*scT; i+=stepSample){
+        const tt = i/scT;
+        const v = vA(tt);
+        vCtx.lineTo(ox + i, oy - v * scV);
+    }
+    vCtx.stroke();
+    // B 速度曲线
+    vCtx.strokeStyle = "#e17055";
+    vCtx.beginPath();
+    for(let i=0; i<=tNow*scT; i+=stepSample){
+        const tt = i/scT;
+        const v = vB(tt);
+        vCtx.lineTo(ox + i, oy - v * scV);
+    }
+    vCtx.stroke();
+}
+
+// 分阶段播放
+function stepPlay() {
+    if(curSeg >= 4) return;
+    cancelAnimationFrame(animId);
+    const segEndTime = (curSeg + 1) * segT;
+
+    function step() {
+        if(curTime >= segEndTime) {
+            curSeg++;
+            cancelAnimationFrame(animId);
+            return;
+        }
+        drawScene(curTime);
+        drawVt(curTime);
+        // 原 0.0008 → 0.6倍速度：0.0008 * 0.6 = 0.00048
+        curTime += 0.00048;
+        animId = requestAnimationFrame(step);
+    }
+    step();
+}
+
+// 按完整周期播放
+function fullCyclePlay() {
+    if(curTime >= T) return;
+    cancelAnimationFrame(animId);
+
+    function step() {
+        if(curTime >= T) {
+            curSeg = 4;
+            cancelAnimationFrame(animId);
+            return;
+        }
+        curSeg = Math.floor(curTime / segT);
+        drawScene(curTime);
+        drawVt(curTime);
+        // 全局统一 0.6 倍慢放
+        curTime += 0.00048;
+        animId = requestAnimationFrame(step);
+    }
+    step();
+}
+
+// 重置全部状态
+function resetAll() {
+    cancelAnimationFrame(animId);
+    curSeg = 0;
+    curTime = 0;
+    drawScene(0);
+    drawVt(0);
+}
+
+// 质量选择项点击事件
+function bindMassSelect() {
+    massItems.forEach(item => {
+        item.addEventListener('click', function(){
+            massItems.forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+            const idx = parseInt(this.dataset.index);
+            const cfg = massConfigs[idx];
+            currentMA = cfg.ma;
+            currentMB = cfg.mb;
+            updatePhysics();
+            resetAll();
+        });
+    });
+}
+
+// 页面初始化
+document.addEventListener('DOMContentLoaded', function(){
+    massItems[0].classList.add('active');
+    currentMA = massConfigs[0].ma;
+    currentMB = massConfigs[0].mb;
+    updatePhysics();
+
+    bindMassSelect();
+    document.getElementById('stepPlay').addEventListener('click', stepPlay);
+    document.getElementById('fullPlay').addEventListener('click', fullCyclePlay);
+    document.getElementById('reset').addEventListener('click', resetAll);
+
+    drawScene(0);
+    drawVt(0);
+});
+</script>
+</body>
+</html>
